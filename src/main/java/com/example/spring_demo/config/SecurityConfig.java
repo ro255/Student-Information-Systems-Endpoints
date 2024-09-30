@@ -16,14 +16,13 @@ public class SecurityConfig {
   private CustomUsersDetailsService usersDetailsServices;
 
 
-
    protected void configure(HttpSecurity http) throws Exception{
    http.authorizeRequests()
       .dispatcherTypeMatchers(HttpMethod.valueOf("/api/v1/auth")).permitAll()
       .anyRequest().authenticated()
       .and();
-//      .formLogin();
+
   }
-//  authorizeHttpRequests();
+
 
 }

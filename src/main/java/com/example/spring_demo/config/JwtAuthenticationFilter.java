@@ -1,5 +1,4 @@
 package com.example.spring_demo.config;
-
 import com.example.spring_demo.services.JwtServices;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -51,6 +50,7 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
         );
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
       }
+
 
     }
     filterChain.doFilter(request,response);
