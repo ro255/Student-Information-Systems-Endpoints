@@ -36,6 +36,10 @@ public class Users implements UserDetails {
   @Enumerated(EnumType.STRING)
   private Role role;
 
+  @OneToOne
+  @JoinColumn(name = "cardId")
+  private NhifApplication nhifApplication;
+
 
   /**
    * @return
