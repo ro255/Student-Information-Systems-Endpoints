@@ -15,6 +15,7 @@ public class SecurityConfig {
   @Autowired
   private CustomUsersDetailsService usersDetailsServices;
 
+//  private  StudentDetailsService studentDetailsService;
 
    protected void configure(HttpSecurity http) throws Exception{
    http.authorizeRequests()
@@ -24,5 +25,10 @@ public class SecurityConfig {
 
   }
 
+//  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//     auth.userDetailsService(studentDetailsService);
+//
+//
+//  }
 
 }

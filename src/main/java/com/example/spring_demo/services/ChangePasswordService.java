@@ -1,4 +1,5 @@
-package com.example.spring_demo.conntroller;
+package com.example.spring_demo.services;
+import com.example.spring_demo.conntroller.ChangePasswordRequest;
 import com.example.spring_demo.models.Users;
 import com.example.spring_demo.respositories.UsersRepository;
 import lombok.RequiredArgsConstructor;

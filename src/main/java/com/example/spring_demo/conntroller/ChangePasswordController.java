@@ -1,5 +1,6 @@
 package com.example.spring_demo.conntroller;
 
+import com.example.spring_demo.services.ChangePasswordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,7 +16,8 @@ import java.security.Principal;
 
 public class ChangePasswordController {
 
-  private final  ChangePasswordService changePasswordService;
+  private final ChangePasswordService changePasswordService;
+
 
   @PatchMapping
   public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request, Principal connectedUser) {

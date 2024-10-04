@@ -4,22 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.Date;
+
 
 @Entity
 @Table
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Login {
+
+public class IptApplication {
 
   @Id
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long applicationId;
 
-  @Column(unique = true,nullable = false)
-  private String email;
+  private String region;
+  private String institution;
+  private String section;
+  private Date appliedDate;
 
-  @Column(unique = true, nullable = false)
-  private String password;
 }

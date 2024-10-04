@@ -64,15 +64,9 @@ public class NhifApplicationController {
        nhifApplication.setControl_Number(Long.toString(cardId));
        nhifApplication.setNHIF_SubmissionResponse(request.getNHIF_SubmissionResponse());
        nhifApplication.setNHIF_SubmissionTime(String.valueOf(new Date()));
-       nhifApplication.setAYear(request.getAYear());
        nhifApplication.setCardNumber(request.getCardNumber());
-       nhifApplication.setFormIV_index(request.getFormIV_index());
-       nhifApplication.setGender(request.getGender());
        nhifApplication.setIdentification_Number(request.getIdentification_Number());
-       nhifApplication.setPhone(request.getPhone());
-       nhifApplication.setRegistrationNo(request.getRegistrationNo());
        nhifApplication.setStatus(request.getStatus());
-       nhifApplication.setYear(request.getYear());
        nhifApplicationRepository.save(nhifApplication);
 
 

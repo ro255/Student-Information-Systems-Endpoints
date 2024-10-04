@@ -3,22 +3,35 @@ import com.example.spring_demo.models.Role;
 import com.example.spring_demo.respositories.UsersRepository;
 import com.example.spring_demo.services.JwtServices;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import static com.example.spring_demo.models.Users.*;
 
+
 @Service
-@RequiredArgsConstructor
 
 public class AuthenticationService {
+
+  @Autowired
   private final UsersRepository usersRepository;
   private final PasswordEncoder passwordEncoder;
   private final JwtServices jwtServices;
+
+  @Autowired
+  public AuthenticationService(UsersRepository usersRepository, PasswordEncoder passwordEncoder, JwtServices jwtServices, AuthenticationManager authenticationManager) {
+    this.usersRepository = usersRepository;
+    this.passwordEncoder = passwordEncoder;
+    this.jwtServices = jwtServices;
+    this.authenticationManager = authenticationManager;
+  }
+
   private final AuthenticationManager authenticationManager;
 
   public AuthenticationResponse register(RegisterRequest request) {
+
     var user= builder()
       .name(request.getName())
       .email(request.getEmail())
@@ -32,6 +45,7 @@ public class AuthenticationService {
       .token(jwtToken)
       .build();
   }
+
 
   public AuthenticationResponse login(LoginRequest request) {
       authenticationManager.authenticate(
@@ -62,4 +76,5 @@ public class AuthenticationService {
       .build();
 
   }
+
 }

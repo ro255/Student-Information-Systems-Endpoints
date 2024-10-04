@@ -1,4 +1,5 @@
 package com.example.spring_demo.auth;
+
 import com.example.spring_demo.models.Users;
 import com.example.spring_demo.responses.ApiResponse;
 import com.example.spring_demo.respositories.UsersRepository;
@@ -15,12 +16,14 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 
 public class AuthenticationController {
+
   private final AuthenticationService service;
   private final UsersRepository usersRepository;
 
   @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register(
     @RequestBody RegisterRequest request) {
+
     try {
       AuthenticationResponse response= service.register(request) ;
       ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
@@ -28,6 +31,7 @@ public class AuthenticationController {
         "User registered Successfully",
         response
       );
+
       return  ResponseEntity.ok(apiResponse.getData());
     } catch (Exception e) {
       ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
@@ -35,10 +39,13 @@ public class AuthenticationController {
         "Failure to register user",
         null
       );
+
       return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
     }
 
   }
+
+
 
   @GetMapping("/users")
   public ResponseEntity<List<Users>> getAllUsers() {
@@ -46,6 +53,7 @@ public class AuthenticationController {
     if(users.isEmpty()) {
       throw new NoSuchElementException("No users found");
     }
+
 try {
   ApiResponse<List<Users>> apiResponse= new ApiResponse<>(
     HttpStatus.OK.value(),
@@ -54,15 +62,19 @@ try {
   );
 
   return ResponseEntity.ok(apiResponse.getData());
-} catch (Exception e) {
+}
+  catch (Exception e) {
   ApiResponse<List<Users>> apiResponse= new ApiResponse<>(
     HttpStatus.BAD_REQUEST.value(),
     "Users not found",
     null
   );
+
   return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
 }
+
   }
+
 
   @PutMapping("/register/{userId}")
   public ResponseEntity<AuthenticationResponse> updateUser(@PathVariable Long userId, @RequestBody RegisterRequest request) {
@@ -73,8 +85,6 @@ try {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
           usersRepository.save(user);
-
-
 
             AuthenticationResponse response= service.updateUser(request);
             ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
@@ -95,8 +105,10 @@ try {
           }
   }
 
+
   @DeleteMapping("/register/{userId}")
   public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
+
     try{
     Users user = usersRepository.findById(userId).orElseThrow(()->
       new NoSuchElementException("User not found with ID:"+userId));
@@ -121,6 +133,7 @@ try {
 
   @PostMapping("/login")
   public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
+
    try{
      AuthenticationResponse response= service.login(request);
      ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(

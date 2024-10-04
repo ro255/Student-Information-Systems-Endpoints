@@ -9,8 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/auth/v1/courseRegister")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 
 public class CourseRegistrationController {
@@ -18,11 +19,12 @@ public class CourseRegistrationController {
   private final CourseRegistrationRepository courseRegistrationRepository;
 
 
-  @PostMapping
+  @PostMapping("/courseRegister")
   public ResponseEntity<?> courseRegistration(@RequestBody CourseRegistrationRequest request) {
      return ResponseEntity.ok().build();
 
   }
+
 
   @GetMapping("/register course")
   public ResponseEntity<List<CourseRegistration>> registerCourse() {
@@ -35,28 +37,30 @@ public class CourseRegistrationController {
         "Course successfully registered",
         courseRegistrations
       );
+      return ResponseEntity.ok().body(apiResponse.getData());
     } catch (Exception e) {
       ApiResponse<List<CourseRegistration>> apiResponse = new ApiResponse<>(
         HttpStatus.BAD_REQUEST.value(),
         "Course not registered",
         null
       );
+      return ResponseEntity.ok().body(courseRegistrations);
     }
-    return ResponseEntity.ok().body(courseRegistrations);
 
   }
 
 
-  @PatchMapping("/courseRegister")
+  @PutMapping("/courseRegister")
   public ResponseEntity<List<CourseRegistration>> updateCourse(@PathVariable Integer serial_number, @RequestBody CourseRegistrationRequest request) {
    try {
      CourseRegistration courseRegistration= courseRegistrationRepository.findById(serial_number).orElseThrow(() ->
        new RuntimeException("Course Registration Not Found"));
      courseRegistration.setCourse_code(request.getCourse_code());
      courseRegistration.setCourse_name(request.getCourse_name());
-     courseRegistration.setCourse_code(request.getCourse_code());
      courseRegistration.setStatus(request.getStatus());
      courseRegistrationRepository.save(courseRegistration);
+
+     return ResponseEntity.ok().body(courseRegistrationRepository.findAll());
 
    }
 
@@ -66,8 +70,9 @@ public class CourseRegistrationController {
        "Course Update failed",
        null
      );
+     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
    }
-    return ResponseEntity.ok().body(courseRegistrationRepository.findAll());
+
   }
 
 
@@ -83,6 +88,7 @@ public class CourseRegistrationController {
         "course deleted successfully",
         null
       );
+      return ResponseEntity.ok().body(apiResponse.getData());
 
     } catch (Exception e) {
       ApiResponse<Void> apiResponse = new ApiResponse<>(
@@ -90,8 +96,9 @@ public class CourseRegistrationController {
         "course not found",
         null
       );
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
     }
-    return ResponseEntity.ok().build();
+
   }
 
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class CourseRegistrationRequest {
+
     private String course_code;
     private String course_name;
     private Integer unit;

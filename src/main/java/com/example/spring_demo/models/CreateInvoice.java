@@ -1,9 +1,11 @@
 package com.example.spring_demo.models;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 
 @Entity
 @Table
@@ -12,14 +14,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Login {
+public class CreateInvoice {
 
   @Id
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long invoiceId;
+  private String invoiceNumber;
+  private String category;
+  private String currency;
+  private String status;
 
-  @Column(unique = true,nullable = false)
-  private String email;
 
-  @Column(unique = true, nullable = false)
-  private String password;
+  private Integer StuDetailId;
+
+
 }

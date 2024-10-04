@@ -1,9 +1,11 @@
 package com.example.spring_demo.models;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.math.BigInteger;
 
 @Entity
 @Table
@@ -12,14 +14,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class Login {
+public class MyFullProfile {
 
   @Id
-  private Long id;
+  @GeneratedValue
+  private BigInteger profileId;
 
-  @Column(unique = true,nullable = false)
-  private String email;
+  @ManyToOne
+  @JoinColumn(name = "StuDetailId")
+  private StudentsDetails StuDetailId;
 
-  @Column(unique = true, nullable = false)
-  private String password;
+
 }
