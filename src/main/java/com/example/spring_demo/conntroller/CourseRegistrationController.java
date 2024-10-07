@@ -1,103 +1,49 @@
 package com.example.spring_demo.conntroller;
 
+import com.example.spring_demo.Dto.CourseRegistrationDto;
 import com.example.spring_demo.models.CourseRegistration;
-import com.example.spring_demo.responses.ApiResponse;
-import com.example.spring_demo.respositories.CourseRegistrationRepository;
+import com.example.spring_demo.services.CourseRegistrationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 
 public class CourseRegistrationController {
 
-  private final CourseRegistrationRepository courseRegistrationRepository;
-
+  @Autowired
+  private final CourseRegistrationService courseRegistrationService;
 
   @PostMapping("/courseRegister")
-  public ResponseEntity<?> courseRegistration(@RequestBody CourseRegistrationRequest request) {
-     return ResponseEntity.ok().build();
+  public ResponseEntity<CourseRegistration> courseRegistration(@RequestBody CourseRegistrationDto courseRegistrationDto) {
+    CourseRegistration courseRegistration=courseRegistrationService.courseRegistration(courseRegistrationDto);
+     return ResponseEntity.ok(courseRegistration);
 
   }
-
 
   @GetMapping("/register course")
-  public ResponseEntity<List<CourseRegistration>> registerCourse() {
-    List<CourseRegistration> courseRegistrations = courseRegistrationRepository.findAll();
-    if (courseRegistrations.isEmpty()) {
-      throw  new RuntimeException("Course Registration Not Found");
-    } try{
-      ApiResponse<List<CourseRegistration>> apiResponse = new ApiResponse<>(
-        HttpStatus.OK.value(),
-        "Course successfully registered",
-        courseRegistrations
-      );
-      return ResponseEntity.ok().body(apiResponse.getData());
-    } catch (Exception e) {
-      ApiResponse<List<CourseRegistration>> apiResponse = new ApiResponse<>(
-        HttpStatus.BAD_REQUEST.value(),
-        "Course not registered",
-        null
-      );
-      return ResponseEntity.ok().body(courseRegistrations);
-    }
+  public ResponseEntity<List<CourseRegistration>> getRegisterCourse() {
+    List<CourseRegistration> courseRegistrations = courseRegistrationService.getRegisterCourse();
+    return ResponseEntity.ok(courseRegistrations);
 
   }
-
 
   @PutMapping("/courseRegister")
-  public ResponseEntity<List<CourseRegistration>> updateCourse(@PathVariable Integer serial_number, @RequestBody CourseRegistrationRequest request) {
-   try {
-     CourseRegistration courseRegistration= courseRegistrationRepository.findById(serial_number).orElseThrow(() ->
-       new RuntimeException("Course Registration Not Found"));
-     courseRegistration.setCourse_code(request.getCourse_code());
-     courseRegistration.setCourse_name(request.getCourse_name());
-     courseRegistration.setStatus(request.getStatus());
-     courseRegistrationRepository.save(courseRegistration);
-
-     return ResponseEntity.ok().body(courseRegistrationRepository.findAll());
-
-   }
-
-   catch (Exception e) {
-     ApiResponse<List<CourseRegistration>> apiResponse = new ApiResponse<>(
-       HttpStatus.BAD_REQUEST.value(),
-       "Course Update failed",
-       null
-     );
-     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
-   }
+  public ResponseEntity<CourseRegistration> updateCourse(@PathVariable Integer serial_number, @RequestBody CourseRegistrationDto courseRegistrationDto) {
+   CourseRegistration courseRegistration = courseRegistrationService.updateCourse(serial_number, courseRegistrationDto);
+   return ResponseEntity.ok(courseRegistration);
 
   }
 
-
   @DeleteMapping("/courseRegister/{serial_number}")
-  public ResponseEntity<?> deleteCourse(@PathVariable Integer serial_number) {
-    try {
-      CourseRegistration courseRegistration =courseRegistrationRepository.findById(serial_number).orElseThrow(() ->
-        new RuntimeException("Course Registration Not Found with:" + serial_number));
-      courseRegistrationRepository.delete(courseRegistration);
-
-      ApiResponse<Void> apiResponse = new ApiResponse<>(
-        HttpStatus.OK.value(),
-        "course deleted successfully",
-        null
-      );
-      return ResponseEntity.ok().body(apiResponse.getData());
-
-    } catch (Exception e) {
-      ApiResponse<Void> apiResponse = new ApiResponse<>(
-        HttpStatus.BAD_REQUEST.value(),
-        "course not found",
-        null
-      );
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
-    }
+  public ResponseEntity<Void> deleteCourse(@PathVariable Integer serial_number) {
+  courseRegistrationService.deleteCourse(serial_number);
+  return ResponseEntity.ok().build();
 
   }
 

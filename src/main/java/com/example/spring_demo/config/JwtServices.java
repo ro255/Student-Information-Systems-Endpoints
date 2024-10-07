@@ -1,4 +1,4 @@
-package com.example.spring_demo.services;
+package com.example.spring_demo.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -23,7 +23,6 @@ public class JwtServices {
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
   }
-
 
   public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);

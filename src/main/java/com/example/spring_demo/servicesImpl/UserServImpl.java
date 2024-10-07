@@ -42,10 +42,7 @@ public class UserServImpl implements UserServices {
    */
   @Override
   public LoginResponse<UsersRequestDto> login(UsersRequestDto user) {
-//    users.getEmail();
-//    users.getPassword();
 
-//    usersRepository.save(users);
     return new LoginResponse<>("Login successfully",user);
 
   }

@@ -1,15 +1,22 @@
 package com.example.spring_demo.services;
 
-import com.example.spring_demo.auth.AuthenticationResponse;
-import com.example.spring_demo.conntroller.AccommodationRequest;
+import com.example.spring_demo.Dto.AccommodationRequestDto;
+import com.example.spring_demo.models.Accommodation;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
-public class AccommodationService {
+@Transactional
 
-  public AuthenticationResponse application(AccommodationRequest request) {
+public interface AccommodationService {
 
-    return AuthenticationResponse.builder().build();
-  }
+  Accommodation createAccommodation(AccommodationRequestDto accommodationRequestDto);
+
+  Accommodation updateAccommodation(Long accommodationId, AccommodationRequestDto accommodationRequestDto);
+
+  void deleteAccommodation(Long accommodationId);
+
+  List<Accommodation> getAllAccommodations();
 
 }

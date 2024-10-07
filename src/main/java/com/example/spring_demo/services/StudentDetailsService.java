@@ -1,16 +1,19 @@
 package com.example.spring_demo.services;
 
-import com.example.spring_demo.auth.AuthenticationResponse;
-import com.example.spring_demo.conntroller.StudentsDetailsRequest;
+import com.example.spring_demo.Dto.StudentDetailsDto;
+import com.example.spring_demo.models.StudentsDetails;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
+public interface StudentDetailsService {
 
-public class StudentDetailsService {
+  StudentsDetails createDetails(StudentDetailsDto studentDetailsDto);
 
-  public AuthenticationResponse studentDetails(StudentsDetailsRequest request) {
-    return AuthenticationResponse.builder().build();
+  List<StudentsDetails> getAllStudentsDetails();
 
-  }
+  StudentsDetails updateStudentDetails(Long student_detail_id, StudentDetailsDto studentDetailsDto);
+
+  void deleteStudentDetails(Long student_detail_id);
 
 }

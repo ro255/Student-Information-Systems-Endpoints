@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/users")
+@CrossOrigin(origins = "*")
 
 public class UserController {
+
   private final UserServices userServices;
 
   @Autowired
@@ -22,19 +24,5 @@ public class UserController {
   return userServices.register(usersRequestDto);
 
   }
-
-//  @PostMapping(path="/login")
-//  public String loginUser(@Validated @RequestBody UsersRequestDto usersRequestDto) {
-//    UsernamePasswordAuthenticationToken authenticationToken= new UsernamePasswordAuthenticationToken(loginUser.getEmail(),loginUser.getPassword());
-//    Authentication authentication=authenticationManager.authenticate(authenticationToken);
-//
-//    if(authentication.isAuthenticated()){
-//      return  "Login Successfully";
-//    } else {
-//      return "Invalid email or password";
-//    }
-
-//    return userServices.login(usersRequestDto);
-//  }
 
 }

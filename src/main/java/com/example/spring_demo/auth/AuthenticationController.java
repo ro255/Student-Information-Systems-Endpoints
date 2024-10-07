@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 
 public class AuthenticationController {
 
@@ -54,7 +54,7 @@ public class AuthenticationController {
       throw new NoSuchElementException("No users found");
     }
 
-try {
+  try {
   ApiResponse<List<Users>> apiResponse= new ApiResponse<>(
     HttpStatus.OK.value(),
     "Users retrieved successfully",
@@ -62,7 +62,7 @@ try {
   );
 
   return ResponseEntity.ok(apiResponse.getData());
-}
+  }
   catch (Exception e) {
   ApiResponse<List<Users>> apiResponse= new ApiResponse<>(
     HttpStatus.BAD_REQUEST.value(),
@@ -71,7 +71,7 @@ try {
   );
 
   return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
-}
+    }
 
   }
 

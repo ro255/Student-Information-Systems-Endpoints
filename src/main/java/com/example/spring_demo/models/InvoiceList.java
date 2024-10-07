@@ -1,18 +1,19 @@
 package com.example.spring_demo.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.List;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-@Entity
+@Entity(name = "invoice_list")
 @Table
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+//@SQLDelete(sql = "UPDATE invoice_list SET deleted = true WHERE id = ?")
+//@Where(clause = "deleted = false")
 
 public class InvoiceList {
 
@@ -20,20 +21,9 @@ public class InvoiceList {
   @GeneratedValue
   private Long invoiceListId;
 
-
-
-
-//  @ManyToMany
-//  @JoinTable(
-//    name = "Invoice_list",
-//    joinColumns = @JoinColumn(name = "invoiceListId"),
-//    inverseJoinColumns = @JoinColumn(name= "invoiceId")
-//  )
-//  private List<InvoiceList> invoiceList;
-
-
   @OneToOne
   @JoinColumn(name = "invoiceId")
-  private CreateInvoice invoiceId;
+  private CreateInvoice createInvoice;
+
 
 }

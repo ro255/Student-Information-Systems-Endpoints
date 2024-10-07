@@ -17,13 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 
-
 public class Users implements UserDetails {
-
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "userId")
   private Long userId;
 
   @Column()

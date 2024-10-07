@@ -7,28 +7,21 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
-
 @Configuration
 @EnableWebSecurity
+
 public class SecurityConfig {
 
   @Autowired
-  private CustomUsersDetailsService usersDetailsServices;
-
-//  private  StudentDetailsService studentDetailsService;
+  private CustomUsersDetailsService customUsersDetailsService;
 
    protected void configure(HttpSecurity http) throws Exception{
    http.authorizeRequests()
-      .dispatcherTypeMatchers(HttpMethod.valueOf("/api/v1/auth")).permitAll()
+      .dispatcherTypeMatchers(HttpMethod.valueOf("/api/v1/auth/**")).permitAll()
       .anyRequest().authenticated()
       .and();
 
   }
 
-//  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//     auth.userDetailsService(studentDetailsService);
-//
-//
-//  }
 
 }

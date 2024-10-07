@@ -1,8 +1,8 @@
 package com.example.spring_demo.auth;
+
 import com.example.spring_demo.models.Role;
 import com.example.spring_demo.respositories.UsersRepository;
-import com.example.spring_demo.services.JwtServices;
-import lombok.RequiredArgsConstructor;
+import com.example.spring_demo.config.JwtServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,9 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import static com.example.spring_demo.models.Users.*;
 
-
 @Service
-
 public class AuthenticationService {
 
   @Autowired

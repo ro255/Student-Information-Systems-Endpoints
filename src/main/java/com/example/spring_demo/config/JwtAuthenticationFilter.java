@@ -1,6 +1,5 @@
 package com.example.spring_demo.config;
 
-import com.example.spring_demo.services.JwtServices;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,14 +16,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
-
 @Component
 @RequiredArgsConstructor
+
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private final JwtServices jwtServices;
   private final ApplicationContext applicationContext;
-
 
   @Override
   protected void doFilterInternal(
@@ -44,7 +42,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     jwt = authHeader.substring(7);
     email = jwtServices.extractUsername(jwt);
     if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-      // Lazy load UserDetailsService using ApplicationContext
       UserDetailsService userDetailsService = applicationContext.getBean(UserDetailsService.class);
       UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
