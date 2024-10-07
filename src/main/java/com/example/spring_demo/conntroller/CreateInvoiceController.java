@@ -20,8 +20,11 @@ public class CreateInvoiceController {
   private final CreateInvoiceService createInvoiceService;
 
   @PostMapping("/create_invoice")
-  public ResponseEntity<CreateInvoice>  createInvoive(@RequestBody CreateInvoiceDto createInvoiceDto){
-    CreateInvoice createInvoice= createInvoiceService.createInvoive(createInvoiceDto);
+  public ResponseEntity<CreateInvoice>  createInvoices(@RequestBody CreateInvoiceDto createInvoiceDto){
+    System.out.println(createInvoiceDto);
+    System.out.println("==========================");
+
+    CreateInvoice createInvoice= createInvoiceService.createInvoices(createInvoiceDto);
    return ResponseEntity.ok(createInvoice);
 
   }

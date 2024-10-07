@@ -10,7 +10,6 @@ import lombok.*;
 @NoArgsConstructor
 
 public class NhifApplicationDto {
-
   @JsonProperty("CardNumber")
   private String CardNumber;
 

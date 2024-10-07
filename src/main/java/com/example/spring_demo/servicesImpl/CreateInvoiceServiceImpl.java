@@ -21,13 +21,15 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
   }
 
   @Override
-  public CreateInvoice createInvoive(CreateInvoiceDto createInvoiceDto) {
-    CreateInvoice createInvoices = new CreateInvoice();
-    createInvoices.setCategory(createInvoiceDto.getCategory());
-    createInvoices.setStatus(createInvoiceDto.getStatus());
-    createInvoices.setCurrency(createInvoiceDto.getCurrency());
-    createInvoices.setInvoice_number(createInvoiceDto.getInvoice_number());
-    return createInvoiceRepository.save(createInvoices);
+  public CreateInvoice createInvoices(CreateInvoiceDto createInvoiceDto) {
+    CreateInvoice createInvoice = new CreateInvoice();
+    createInvoice.setCategory(createInvoiceDto.getCategory());
+    createInvoice.setStatus(createInvoiceDto.getStatus());
+    createInvoice.setCurrency(createInvoiceDto.getCurrency());
+    createInvoice.setInvoice_number(createInvoiceDto.getInvoice_number());
+    System.out.println(createInvoiceDto.getInvoice_number());
+
+    return createInvoiceRepository.save(createInvoice);
 
   }
 

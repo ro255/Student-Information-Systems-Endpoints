@@ -21,24 +21,25 @@ public class NhifApplicationServiceImpl implements NhifApplicationService {
 
   @Override
   public NhifApplication nhifApplications(NhifApplicationDto nhifApplicationDto) {
-    System.out.println("===================START===========================");
+    System.out.println(nhifApplicationDto);
     System.out.println("===================START===========================");
 
-    NhifApplication nhifApplication = new NhifApplication();
-    nhifApplication.setNHIF_SubmissionResponse(nhifApplicationDto.getNHIF_SubmissionResponse());
-    System.out.println(nhifApplication.getNHIF_SubmissionResponse());
-    nhifApplication.setNHIF_SubmissionTime(nhifApplicationDto.getNHIF_SubmissionTime());
-    nhifApplication.setStatus(nhifApplicationDto.getStatus());
-    nhifApplication.setAmount(nhifApplicationDto.getAmount());
-    nhifApplication.setCardNumber(String.valueOf(nhifApplicationDto.getCardNumber()));
-    nhifApplication.setIdentification_Number(String.valueOf(nhifApplicationDto.getIdentification_Number()));
-    nhifApplication.setControl_Number(String.valueOf(nhifApplicationDto.getControl_Number()));
-    nhifApplication.setCategory(String.valueOf(nhifApplicationDto.getCategory()));
+    NhifApplication nhif_application = new NhifApplication();
+    nhif_application.setNHIF_SubmissionResponse(nhifApplicationDto.getNHIF_SubmissionResponse());
+    nhif_application.setNHIF_SubmissionTime(nhifApplicationDto.getNHIF_SubmissionTime());
+    nhif_application.setStatus(nhifApplicationDto.getStatus());
+    nhif_application.setAmount(nhifApplicationDto.getAmount());
+    nhif_application.setCardNumber(String.valueOf(nhifApplicationDto.getCardNumber()));
+    nhif_application.setIdentification_Number(String.valueOf(nhifApplicationDto.getIdentification_Number()));
+    nhif_application.setControl_Number(String.valueOf(nhifApplicationDto.getControl_Number()));
+    nhif_application.setCategory(String.valueOf(nhifApplicationDto.getCategory()));
+
+    System.out.println(nhifApplicationDto.getCategory());
+
 
     System.out.println("====================END==============================");
-
-    nhifApplicationRepository.save(nhifApplication);
-    return nhifApplication;
+    nhifApplicationRepository.save(nhif_application);
+    return nhif_application;
 
   }
 
@@ -50,29 +51,41 @@ public class NhifApplicationServiceImpl implements NhifApplicationService {
 
   @Override
   public void DeleteNhifCard(Long cardId) {
-    nhifApplicationRepository.deleteById(cardId);
+    if (nhifApplicationRepository.existsById(cardId)) {
+      nhifApplicationRepository.deleteById(cardId);
+    } else {
+      return ;
+    }
+//    nhifApplicationRepository.deleteById(cardId);
+
 
   }
 
   @Override
   public NhifApplication UpdateNhifCard(Long cardId, NhifApplicationDto nhifApplicationDto) {
+    System.out.println("======================START==============================");
+    System.out.println("nhifApplicationDto"+nhifApplicationDto);
     if(cardId == null) {
       return null;
     }
-    NhifApplication nhifApplication = nhifApplicationRepository.findById(cardId).orElse(null);
-    if (nhifApplication != null) {
-      nhifApplication.setCardNumber(nhifApplicationDto.getCardNumber());
-      nhifApplication.setIdentification_Number(nhifApplicationDto.getIdentification_Number());
-      nhifApplication.setControl_Number(nhifApplicationDto.getControl_Number());
-      nhifApplication.setCategory(nhifApplicationDto.getCategory());
-      nhifApplication.setAmount(nhifApplicationDto.getAmount());
-      nhifApplication.setNHIF_SubmissionResponse(nhifApplicationDto.getNHIF_SubmissionResponse());
-      nhifApplication.setStatus(nhifApplicationDto.getStatus());
-      nhifApplication.setNHIF_SubmissionTime(nhifApplicationDto.getNHIF_SubmissionTime());
-      nhifApplication.setStatus(nhifApplicationDto.getStatus());
 
-      nhifApplicationRepository.save(nhifApplication);
-      return nhifApplication;
+    NhifApplication nhif_application = nhifApplicationRepository.findById(cardId).orElse(null);
+    if (nhif_application != null) {
+      nhif_application.setCardNumber(nhifApplicationDto.getCardNumber());
+      nhif_application.setIdentification_Number(nhifApplicationDto.getIdentification_Number());
+      nhif_application.setControl_Number(nhifApplicationDto.getControl_Number());
+      nhif_application.setCategory(nhifApplicationDto.getCategory());
+      nhif_application.setAmount(nhifApplicationDto.getAmount());
+      nhif_application.setNHIF_SubmissionResponse(nhifApplicationDto.getNHIF_SubmissionResponse());
+      nhif_application.setStatus(nhifApplicationDto.getStatus());
+      nhif_application.setNHIF_SubmissionTime(nhifApplicationDto.getNHIF_SubmissionTime());
+      nhif_application.setStatus(nhifApplicationDto.getStatus());
+
+     System.out.println(nhif_application);
+     System.out.println("====================END============================");
+
+      nhifApplicationRepository.save(nhif_application);
+      return nhif_application;
 
     } else{
 

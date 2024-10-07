@@ -4,25 +4,32 @@ import com.example.spring_demo.Dto.NhifApplicationDto;
 import com.example.spring_demo.models.NhifApplication;
 import com.example.spring_demo.services.NhifApplicationService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth/v1/auth")
+@RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 
 public class NhifApplicationController {
+
+  private static final Logger logger = LoggerFactory.getLogger(NhifApplicationController.class);
+
 
   @Autowired
   private final NhifApplicationService nhifApplicationService;
 
   @PostMapping("/nhifCard")
   public ResponseEntity<NhifApplication> nhifApplications(@RequestBody NhifApplicationDto nhifApplicationDto) {
-    System.out.println("nhifApplicationDto"+nhifApplicationDto);
+    logger.info("Received NhifApplicationDto: {}", nhifApplicationDto);
+
     if (nhifApplicationDto == null) {
+      logger.error("NhifApplicationDto is null");
       return ResponseEntity.badRequest().body(null);
     }
     NhifApplication nhifApplication = nhifApplicationService.nhifApplications(nhifApplicationDto);

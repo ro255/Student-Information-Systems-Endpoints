@@ -16,11 +16,14 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
 
   @Override
   public CourseRegistration courseRegistration(CourseRegistrationDto courseRegistrationDto) {
+    System.out.println(courseRegistrationDto);
+    System.out.println("==============================================");
     CourseRegistration courseRegistration = new CourseRegistration();
     courseRegistration.setCourse_name(courseRegistrationDto.getCourse_name());
     courseRegistration.setCourse_code(courseRegistrationDto.getCourse_code());
     courseRegistration.setUnit(courseRegistrationDto.getUnit());
     courseRegistration.setStatus(courseRegistrationDto.getStatus());
+    System.out.println(courseRegistration);
      return courseRegistrationRepository.save(courseRegistration);
 
   }

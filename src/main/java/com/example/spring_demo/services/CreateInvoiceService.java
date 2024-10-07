@@ -11,12 +11,14 @@ import java.util.List;
 
 public interface CreateInvoiceService {
 
-  CreateInvoice createInvoive(CreateInvoiceDto createInvoiceDto);
+
 
   List<CreateInvoice> getInvoice();
 
   CreateInvoice updateInvoice(Long invoiceId, CreateInvoiceDto createInvoiceDto);
 
   void deleteInvoice(Long invoiceId);
+
+  CreateInvoice createInvoices(CreateInvoiceDto createInvoiceDto);
 
 }

@@ -10,7 +10,6 @@ import lombok.*;
 
 public class CreateInvoiceDto {
 
-  private Long invoiceId;
   private String invoice_number;
   private String category;
   private String currency;
