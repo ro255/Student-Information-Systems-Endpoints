@@ -35,5 +35,9 @@ public class CourseRegistration {
   @ManyToMany(mappedBy = "courseRegistrations", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   private List<StudentsDetails> studentsDetails;
 
+  @OneToOne
+  @JoinColumn(name = "ca_id")
+  private CaResult caResult;
+
 
 }

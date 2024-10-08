@@ -82,4 +82,12 @@ public class StudentsDetails{
   @OneToMany(mappedBy = "studentsDetails", cascade = CascadeType.ALL)
   private List<IptApplication> iptApplication;
 
+  @OneToOne
+  @JoinColumn(name = "result_id")
+  private FinalResult finalResult;
+
+  @OneToOne
+  @JoinColumn(name = "ca_id")
+  private CaResult caResult;
+
 }
