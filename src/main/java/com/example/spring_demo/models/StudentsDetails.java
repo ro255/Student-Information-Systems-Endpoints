@@ -39,7 +39,7 @@ public class StudentsDetails{
   private String Nationality;
 
   @Column(name="date_of_birth", nullable = false)
-  private LocalDate DateOfBirth;
+  private String DateOfBirth;
 
   @Column(name = "profile", nullable = false)
   private String profile;

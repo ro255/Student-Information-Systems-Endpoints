@@ -17,7 +17,7 @@ import lombok.Setter;
 public class NhifApplication {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long cardId;
 
   @Column(name = "card_number",unique = true, nullable = false)

@@ -36,16 +36,14 @@ public class FinalResultController {
     return ResponseEntity.ok(finalResults);
   }
 
-  @PutMapping("/result/{result_id}")
-  public ResponseEntity<FinalResult> updateResult(@PathVariable Long result_id, @RequestBody FinalResultDto finalResultDto) {
+ @PutMapping("/result/{result_id}")
+  public ResponseEntity<FinalResult> updateResult(@PathVariable Long result_id,@RequestBody FinalResultDto finalResultDto){
     FinalResult finalResult=finalResultService.updateResult(result_id,finalResultDto);
     return ResponseEntity.ok(finalResult);
-  }
-
-  @DeleteMapping("result/{result_id}")
-  public ResponseEntity<FinalResult> deleteResult(@PathVariable Long result_id) {
+ }
+ @DeleteMapping("/result/{result_id}")
+  public ResponseEntity<FinalResult> deleteResult(@PathVariable Long result_id){
     finalResultService.deleteResult(result_id);
     return ResponseEntity.ok().build();
-  }
-
+ }
 }

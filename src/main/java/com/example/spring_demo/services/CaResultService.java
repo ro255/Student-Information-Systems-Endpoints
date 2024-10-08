@@ -8,9 +8,11 @@ import java.util.List;
 
 @Service
 public interface CaResultService {
+
   CaResult createCaResult(CaResultDto caResultDto);
 
   List<CaResult> getCaResults();
+
 
   void deleteCaResult(Long caId);
 

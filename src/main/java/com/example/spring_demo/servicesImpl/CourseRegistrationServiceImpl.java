@@ -35,23 +35,26 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
   }
 
   @Override
-  public CourseRegistration updateCourse(Integer serialNumber, CourseRegistrationDto courseRegistrationDto) {
-    CourseRegistration courseRegistration = courseRegistrationRepository.findById(serialNumber).orElse(null);
-    if(courseRegistration != null){
+  public CourseRegistration updateCourseRegistration(Long courseId, CourseRegistrationDto courseRegistrationDto) {
+    CourseRegistration courseRegistration = courseRegistrationRepository.findById(courseId).get();
+    if(courseRegistrationDto != null) {
       courseRegistration.setCourse_code(courseRegistrationDto.getCourse_code());
       courseRegistration.setCourse_name(courseRegistrationDto.getCourse_name());
       courseRegistration.setUnit(courseRegistrationDto.getUnit());
       courseRegistration.setStatus(courseRegistrationDto.getStatus());
-      return courseRegistrationRepository.save(courseRegistration);
-    } else {
-      return null;
-    }
 
+      System.out.println(courseRegistration);
+      System.out.println("============================================END====================================================");
+      return courseRegistrationRepository.save(courseRegistration);
+    }
+    return null;
   }
 
   @Override
-  public void deleteCourse(Integer serialNumber) {
-    courseRegistrationRepository.deleteById(serialNumber);
+  public void deleteCourseRegistration(Long courseId) {
+  courseRegistrationRepository.deleteById(courseId);
   }
+
+
 
 }

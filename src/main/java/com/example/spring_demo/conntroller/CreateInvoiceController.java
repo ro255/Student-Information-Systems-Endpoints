@@ -42,7 +42,7 @@ public class CreateInvoiceController {
   }
 
   @DeleteMapping("/create_invoice/{invoiceId}")
-  public ResponseEntity<CreateInvoice> deleteInvoice(@PathVariable Long invoiceId){
+  public ResponseEntity<Void> deleteInvoice(@PathVariable Long invoiceId){
     createInvoiceService.deleteInvoice(invoiceId);
     return ResponseEntity.ok().build();
   }

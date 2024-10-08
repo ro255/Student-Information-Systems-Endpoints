@@ -27,7 +27,7 @@ public class CaResultServiceImpl implements CaResultService {
     caResult.setPoints(caResultDto.getPoints());
     caResult.setRemark(caResultDto.getRemark());
 
-    System.out.println(caResultDto);
+    System.out.println(caResult);
     System.out.println("============================END=======================================");
     return caResultRepository.save(caResult);
 
@@ -39,22 +39,26 @@ public class CaResultServiceImpl implements CaResultService {
     return caResultRepository.findAll();
   }
 
+
   @Override
   public void deleteCaResult(Long caId) {
     caResultRepository.deleteById(caId);
 
   }
 
+
   @Override
   public CaResult updateCaResult(Long caId, CaResultDto caResultDto) {
-    CaResult caResult=caResultRepository.findById(caId).orElse(null);
-    if(caResult !=null){
+    CaResult caResult= caResultRepository.findById(caId).get();
+    if(caResultDto !=null) {
       caResult.setPoints(caResultDto.getPoints());
       caResult.setRemark(caResultDto.getRemark());
-      return caResultRepository.save(caResult);
+
+      System.out.println(caResultDto);
+      System.out.print("=============================================================END===========================================================");
+      caResultRepository.save(caResult);
     }
-    else {
-      return null;
-    }
+    return null;
   }
+
 }

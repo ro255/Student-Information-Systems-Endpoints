@@ -17,8 +17,8 @@ import java.util.List;
 public class CourseRegistration {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer course_id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long course_id;
 
   @Column(name = "course_code")
   private String course_code;

@@ -49,18 +49,19 @@ public class FinalResultServiceImpl implements FinalResultService {
   @Override
   public FinalResult updateResult(Long resultId, FinalResultDto finalResultDto) {
     FinalResult finalResult = finalResultRepository.findById(resultId).get();
-    if(finalResult != null) {
+    if(finalResultDto != null) {
       finalResult.setGrade(finalResultDto.getGrade());
       finalResult.setPoints(finalResultDto.getPoints());
       finalResult.setRemark(finalResultDto.getRemark());
       finalResult.setCourse_code(finalResultDto.getCourse_code());
       finalResult.setCourse_name(finalResultDto.getCourse_name());
       finalResult.setUnit(finalResultDto.getUnit());
-      return finalResultRepository.save(finalResult);
-    } else {
-      return null;
-    }
 
+      System.out.println(finalResult);
+      System.out.println("====================END==============================");
+      finalResultRepository.save(finalResult);
+    }
+    return null;
   }
 
   @Override
@@ -68,4 +69,5 @@ public class FinalResultServiceImpl implements FinalResultService {
     finalResultRepository.deleteById(resultId);
 
   }
+
 }

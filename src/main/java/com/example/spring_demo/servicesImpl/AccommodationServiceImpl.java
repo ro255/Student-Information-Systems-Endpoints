@@ -26,9 +26,13 @@ public class AccommodationServiceImpl implements AccommodationService {
   @Override
   public Accommodation updateAccommodation(Long accommodationId, AccommodationRequestDto accommodationRequestDto) {
     Accommodation accommodation = accommodationRepository.findById(accommodationId).orElse(null);
+    System.out.println(accommodation);
     if (accommodation != null) {
       accommodation.setResidential(accommodationRequestDto.getResidential());
       accommodation.setAccommodationStatus(accommodationRequestDto.getAccommodationStatus());
+
+      System.out.println(accommodation);
+      System.out.println("====================================================END========================================================");
       return accommodationRepository.save(accommodation);
     } else {
       return null;

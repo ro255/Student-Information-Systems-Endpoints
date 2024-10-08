@@ -20,7 +20,7 @@ import org.hibernate.annotations.Where;
 public class CreateInvoice {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long invoiceId;
 
   @Column(name = "invoice_number")

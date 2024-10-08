@@ -32,19 +32,14 @@ public class CourseRegistrationController {
     return ResponseEntity.ok(courseRegistrations);
 
   }
-
-  @PutMapping("/courseRegister")
-  public ResponseEntity<CourseRegistration> updateCourse(@PathVariable Integer serial_number, @RequestBody CourseRegistrationDto courseRegistrationDto) {
-   CourseRegistration courseRegistration = courseRegistrationService.updateCourse(serial_number, courseRegistrationDto);
-   return ResponseEntity.ok(courseRegistration);
-
-  }
-
-  @DeleteMapping("/courseRegister/{serial_number}")
-  public ResponseEntity<Void> deleteCourse(@PathVariable Integer serial_number) {
-  courseRegistrationService.deleteCourse(serial_number);
-  return ResponseEntity.ok().build();
-
-  }
-
+ @PutMapping("/courseRegister/{course_id}")
+  public ResponseEntity<CourseRegistration> updateCourseRegistration(@PathVariable Long course_id, @RequestBody CourseRegistrationDto courseRegistrationDto) {
+    CourseRegistration courseRegistration= courseRegistrationService.updateCourseRegistration(course_id,courseRegistrationDto);
+    return ResponseEntity.ok(courseRegistration);
+ }
+ @DeleteMapping("/courseRegister/{course_id}")
+  public ResponseEntity<Void> deleteCourseRegistration(@PathVariable Long course_id) {
+    courseRegistrationService.deleteCourseRegistration(course_id);
+    return ResponseEntity.noContent().build();
+ }
 }

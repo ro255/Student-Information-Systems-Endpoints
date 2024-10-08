@@ -13,8 +13,9 @@ public interface CourseRegistrationService {
 
   List<CourseRegistration> getRegisterCourse();
 
-  CourseRegistration updateCourse(Integer serialNumber, CourseRegistrationDto courseRegistrationDto);
 
-  void deleteCourse(Integer serialNumber);
+  CourseRegistration updateCourseRegistration(Long courseId, CourseRegistrationDto courseRegistrationDto);
+
+  void deleteCourseRegistration(Long courseId);
 
 }

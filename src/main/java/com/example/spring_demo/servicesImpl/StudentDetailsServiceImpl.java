@@ -37,15 +37,16 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
    studentsDetails.setMobileNo(studentDetailsDto.getMobileNo());
    studentsDetails.setDisability(studentDetailsDto.getDisability());
    studentsDetails.setFormIVIndex(studentDetailsDto.getFormIVIndex());
+   studentsDetails.setDateOfBirth(studentDetailsDto.getDateOfBirth());
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
-    try {
-      LocalDate dateOfBirth = LocalDate.parse(studentDetailsDto.getDateOfBirth(), formatter);
-      studentsDetails.setDateOfBirth(dateOfBirth);
-    } catch (DateTimeParseException e) {
-      System.out.println("Error parsing DateOfBirth: " + e.getMessage());
-    }
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+//
+//    try {
+//      LocalDate dateOfBirth = LocalDate.parse(studentDetailsDto.getDateOfBirth(), formatter);
+//      studentsDetails.setDateOfBirth(dateOfBirth);
+//    } catch (DateTimeParseException e) {
+//      System.out.println("Error parsing DateOfBirth: " + e.getMessage());
+//    }
 
 
     return  studentDetailsRepository.save(studentsDetails);
@@ -74,7 +75,12 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
       studentsDetails.setMobileNo(studentDetailsDto.getMobileNo());
       studentsDetails.setDisability(studentDetailsDto.getDisability());
       studentsDetails.setFormIVIndex(studentDetailsDto.getFormIVIndex());
-      studentsDetails.setDateOfBirth(LocalDate.parse(studentDetailsDto.getDateOfBirth()));
+      studentsDetails.setDateOfBirth(studentDetailsDto.getDateOfBirth());
+
+      System.out.println(studentDetailsDto);
+      System.out.println(studentsDetails);
+      System.out.println("============================================END=================================================");
+//      studentsDetails.setDateOfBirth(LocalDate.parse(studentDetailsDto.getDateOfBirth()));
 
         return studentDetailsRepository.save(studentsDetails);
 

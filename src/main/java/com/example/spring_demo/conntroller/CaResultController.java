@@ -35,12 +35,10 @@ public class CaResultController {
     return ResponseEntity.ok(caResults);
 
   }
-
   @PutMapping("/ca_results/{ca_id}")
   public ResponseEntity<CaResult> updateCaResult(@PathVariable Long ca_id,@RequestBody CaResultDto caResultDto) {
-   CaResult caResult= caResultService.updateCaResult(ca_id,caResultDto);
-   return ResponseEntity.ok(caResult);
-
+    CaResult caResult =caResultService.updateCaResult(ca_id,caResultDto);
+    return ResponseEntity.ok(caResult);
   }
 
   @DeleteMapping("/ca_results/{ca_id}")

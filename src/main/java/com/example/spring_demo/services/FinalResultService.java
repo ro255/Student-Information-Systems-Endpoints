@@ -12,6 +12,7 @@ public interface FinalResultService {
 
   List<FinalResult> getResults();
 
+
   FinalResult updateResult(Long resultId, FinalResultDto finalResultDto);
 
   void deleteResult(Long resultId);
