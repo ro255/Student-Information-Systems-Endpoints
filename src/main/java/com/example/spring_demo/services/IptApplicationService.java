@@ -11,12 +11,13 @@ import java.util.List;
 
 public interface IptApplicationService {
 
-    IptApplication iptApplication(IptApplicationDto iptApplicationDto);
 
-   List<IptApplication> getAllIptApplications();
+  IptApplication createIptApplication(IptApplicationDto iptApplicationDto);
 
-   IptApplication updateIptApplication(Long ipt_application_id, IptApplicationDto iptApplicationDto);
+  List<IptApplication> getIptApplications();
 
-   void deleteIptApplication(Long ipt_application_id);
+  IptApplication updateIptApplication(Long iptApplicationId, IptApplicationDto iptApplicationDto);
+
+  void deleteIptApplication(Long iptApplicationId);
 
 }

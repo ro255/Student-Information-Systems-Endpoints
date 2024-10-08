@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+
 
 @Entity(name = "ipt_application")
 @Table
@@ -19,7 +18,7 @@ import org.hibernate.annotations.Where;
 public class IptApplication{
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long ipt_application_id;
 
   @Column(name = "applied_date")

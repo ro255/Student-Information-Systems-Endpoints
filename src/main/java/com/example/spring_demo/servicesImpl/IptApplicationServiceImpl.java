@@ -18,46 +18,46 @@ public class IptApplicationServiceImpl implements IptApplicationService {
     this.iptApplicationRepository = iptApplicationRepository;
   }
 
-  @Override
-  public IptApplication iptApplication(IptApplicationDto iptApplicationDto) {
-    IptApplication iptApplication = new IptApplication();
+  public IptApplication createIptApplication(IptApplicationDto iptApplicationDto) {
+    System.out.println(iptApplicationDto);
+    System.out.println("====================================START===========================================");
+   IptApplication iptApplication = new IptApplication();
+   iptApplication.setInstitution(iptApplicationDto.getInstitution());
+   iptApplication.setSection(iptApplicationDto.getSection());
+   iptApplication.setRegion(iptApplicationDto.getRegion());
+   iptApplication.setAppliedDate(iptApplicationDto.getAppliedDate());
 
-    iptApplication.setAppliedDate(iptApplicationDto.getAppliedDate());
-    iptApplication.setRegion(iptApplicationDto.getRegion());
-    iptApplication.setSection(iptApplicationDto.getSection());
-    iptApplication.setInstitution(iptApplicationDto.getInstitution());
-    iptApplicationRepository.save(iptApplication);
-
-    return  iptApplicationRepository.save(iptApplication);
+   System.out.println(iptApplication);
+   System.out.println("=================================END=========================================");
+    return iptApplicationRepository.save(iptApplication);
   }
 
   @Override
-  public List<IptApplication> getAllIptApplications() {
+  public List<IptApplication> getIptApplications() {
     return iptApplicationRepository.findAll();
-
   }
 
   @Override
-  public IptApplication updateIptApplication(Long ipt_application_id, IptApplicationDto iptApplicationDto) {
-    if(ipt_application_id==null) {
+  public IptApplication updateIptApplication(Long iptApplicationId, IptApplicationDto iptApplicationDto) {
+    IptApplication iptApplication = iptApplicationRepository.findById(iptApplicationId).get();
+    if(iptApplicationDto != null) {
+      iptApplication.setInstitution(iptApplicationDto.getInstitution());
+      iptApplication.setSection(iptApplicationDto.getSection());
+      iptApplication.setRegion(iptApplicationDto.getRegion());
+      iptApplication.setAppliedDate(iptApplicationDto.getAppliedDate());
+
+      System.out.println(iptApplication);
+      System.out.println("=============================================END==============================================");
+      return iptApplicationRepository.save(iptApplication);
+    } else{
       return null;
     }
-    IptApplication iptApplication = iptApplicationRepository.findById(ipt_application_id).orElse(null);
-    if(iptApplication != null){
-      iptApplication.setAppliedDate(iptApplicationDto.getAppliedDate());
-      iptApplication.setRegion(iptApplicationDto.getRegion());
-      iptApplication.setSection(iptApplicationDto.getSection());
-      iptApplication.setInstitution(iptApplicationDto.getInstitution());
-        return iptApplicationRepository.save(iptApplication);
-    } else {
-        return null;
-    }
 
   }
 
   @Override
-  public void deleteIptApplication(Long ipt_application_id) {
-  iptApplicationRepository.deleteById(ipt_application_id);
+  public void deleteIptApplication(Long iptApplicationId) {
+    iptApplicationRepository.deleteById(iptApplicationId);
 
   }
 }

@@ -19,6 +19,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
 
   public StudentDetailsServiceImpl(StudentDetailsRepository studentDetailsRepository) {
     this.studentDetailsRepository = studentDetailsRepository;
+
   }
 
   @Override
@@ -36,7 +37,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
    studentsDetails.setMobileNo(studentDetailsDto.getMobileNo());
    studentsDetails.setDisability(studentDetailsDto.getDisability());
    studentsDetails.setFormIVIndex(studentDetailsDto.getFormIVIndex());
-    // Define the custom date format
+
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     try {
