@@ -1,5 +1,7 @@
 package com.example.spring_demo.Dto;
 
+import com.example.spring_demo.validation.ValidateGrade;
+import com.example.spring_demo.validation.ValidateRemark;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -22,12 +24,14 @@ public class FinalResultDto {
   private  String unit;
   @NonNull
   @NotEmpty
+  @ValidateGrade
   private  String grade;
   @NonNull
   @NotEmpty
   private String points;
   @NonNull
   @NotEmpty
+  @ValidateRemark
   private String remark;
 
 }

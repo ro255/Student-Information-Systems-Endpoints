@@ -1,5 +1,7 @@
 package com.example.spring_demo.models;
 
+import com.example.spring_demo.validation.ValidateGrade;
+import com.example.spring_demo.validation.ValidateRemark;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,13 +30,13 @@ public class FinalResult {
   @Column(name = "unit", nullable = false)
   private  String unit;
 
-  @Column(name = "grade", nullable = false)
+  @ValidateGrade(message = "Enter a valid grade: It should be either A,B,C or SUPP")
   private String grade;
 
   @Column(name = "points", nullable = false)
   private String points;
 
-  @Column(name = "remark",nullable = false)
+  @ValidateRemark(message = "Enter a valid remark:")
   private String remark;
 
   @OneToOne

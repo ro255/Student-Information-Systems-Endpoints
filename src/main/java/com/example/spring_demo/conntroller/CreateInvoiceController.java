@@ -34,6 +34,7 @@ public class CreateInvoiceController {
   public ResponseEntity<List<CreateInvoice>> getInvoice(){
    List<CreateInvoice> createInvoices= createInvoiceService.getInvoice();
    return ResponseEntity.ok(createInvoices);
+
   }
 
   @PutMapping("/create_invoice/{invoiceId}")

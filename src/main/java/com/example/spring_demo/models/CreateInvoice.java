@@ -1,5 +1,7 @@
 package com.example.spring_demo.models;
 
+import com.example.spring_demo.validation.ValidateCategory;
+import com.example.spring_demo.validation.ValidateStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,12 +28,14 @@ public class CreateInvoice {
   @Column(name = "invoice_number")
   private String invoice_number;
 
+  @ValidateCategory(message ="Enter a valid category: It should be either NHIF,Tuition Fee,Accommodation or Direct Costs")
   @Column(name = "category")
   private String category;
 
   @Column(name = "currency")
   private String currency;
 
+  @ValidateStatus(message = "Enter a valid status:")
   @Column(name = "status")
   private String status;
 
