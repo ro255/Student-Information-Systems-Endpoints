@@ -3,6 +3,7 @@ package com.example.spring_demo.conntroller;
 import com.example.spring_demo.Dto.IptApplicationDto;
 import com.example.spring_demo.models.IptApplication;
 import com.example.spring_demo.services.IptApplicationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class IptApplicationController {
   }
 
   @PutMapping("/ipt_applications/{ipt_application_id}")
-  public ResponseEntity<IptApplication> updateIptApplication( @PathVariable Long ipt_application_id, @RequestBody IptApplicationDto iptApplicationDto) {
+  public ResponseEntity<IptApplication> updateIptApplication(@PathVariable Long ipt_application_id, @RequestBody IptApplicationDto iptApplicationDto) {
     IptApplication iptApplication= iptApplicationService.updateIptApplication(ipt_application_id,iptApplicationDto);
     return ResponseEntity.ok(iptApplication);
   }

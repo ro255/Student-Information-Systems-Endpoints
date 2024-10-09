@@ -3,6 +3,7 @@ package com.example.spring_demo.conntroller;
 import com.example.spring_demo.Dto.CreateInvoiceDto;
 import com.example.spring_demo.models.CreateInvoice;
 import com.example.spring_demo.services.CreateInvoiceService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

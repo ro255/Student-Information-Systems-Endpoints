@@ -1,5 +1,6 @@
 package com.example.spring_demo.Dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 
@@ -12,9 +13,16 @@ import lombok.*;
 public class UsersRequestDto {
 
   private Long userId;
+  @NonNull
+  @NotEmpty
   private String name;
-  private String email;
-  private String password;
 
+  @NonNull
+  @NotEmpty
+  private String email;
+
+  @NonNull
+  @NotEmpty
+  private String password;
 
 }

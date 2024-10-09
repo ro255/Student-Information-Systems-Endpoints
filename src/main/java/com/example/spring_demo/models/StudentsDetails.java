@@ -1,11 +1,12 @@
 package com.example.spring_demo.models;
 
+import com.example.spring_demo.validation.ValidateGender;
+import com.example.spring_demo.validation.ValidateProgramme;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.time.LocalDate;
 import java.util.List;
 
 @Setter
@@ -27,12 +28,13 @@ public class StudentsDetails{
   private String RegistrationNumber;
 
   @Column(name = "programme", nullable = false)
+  @ValidateProgramme(message = "Enter a valid programme name:")
   private String Programme;
 
   @Column(name = "mobile_number", nullable = false)
   private String  MobileNo;
 
-  @Column(name = "gender", nullable = false)
+  @ValidateGender(message = "Invalid gender: It should be either Male or Female")
   private String Gender;
 
   @Column(name = "nationality", nullable = false)
@@ -53,9 +55,9 @@ public class StudentsDetails{
   @Column(name = "form_iv_index", nullable = false)
   private String FormIVIndex;
 
-  @OneToOne
-  @JoinColumn(name = "userId")
-  private Users userId;
+  @OneToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id")
+  private Users users;
 
   @OneToMany(mappedBy = "studentsDetails",cascade = CascadeType.ALL)
    private List<Accommodation> accommodation;
@@ -82,11 +84,11 @@ public class StudentsDetails{
   @OneToMany(mappedBy = "studentsDetails", cascade = CascadeType.ALL)
   private List<IptApplication> iptApplication;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "studentsDetails")
   @JoinColumn(name = "result_id")
   private FinalResult finalResult;
 
-  @OneToOne
+  @OneToOne(mappedBy = "studentsDetails",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "ca_id")
   private CaResult caResult;
 

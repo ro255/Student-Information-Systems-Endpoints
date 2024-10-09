@@ -3,9 +3,11 @@ package com.example.spring_demo.auth;
 import com.example.spring_demo.models.Users;
 import com.example.spring_demo.responses.ApiResponse;
 import com.example.spring_demo.respositories.UsersRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,8 +23,10 @@ public class AuthenticationController {
   private final UsersRepository usersRepository;
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
-    @RequestBody RegisterRequest request) {
+  public ResponseEntity<AuthenticationResponse> register(@RequestBody @Valid RegisterRequest request, BindingResult bindingResult) {
+//    if (bindingResult.hasErrors()) {
+//      return ResponseEntity.badRequest().body("Validation failed");
+//    }
 
     try {
       AuthenticationResponse response= service.register(request) ;

@@ -1,5 +1,6 @@
 package com.example.spring_demo.Dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 @Builder
@@ -11,7 +12,12 @@ import lombok.*;
 
 public class AccommodationRequestDto {
 
+  @NonNull
+  @NotEmpty
   private String residential;
+
+  @NonNull
+  @NotEmpty
   private String accommodation_status;
 
   public Object getAccommodationStatus() {

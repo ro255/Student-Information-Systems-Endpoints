@@ -16,7 +16,6 @@ import java.util.List;
 
 public class StudentsDetailsController {
 
-
   private StudentDetailsService studentDetailsService;
 
   @Autowired

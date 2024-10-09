@@ -56,21 +56,17 @@ public class NhifApplicationServiceImpl implements NhifApplicationService {
     } else {
       return ;
     }
-//    nhifApplicationRepository.deleteById(cardId);
-
 
   }
 
   @Override
   public NhifApplication UpdateNhifCard(Long cardId, NhifApplicationDto nhifApplicationDto) {
-    System.out.println("======================START==============================");
-    System.out.println("nhifApplicationDto"+nhifApplicationDto);
-    if(cardId == null) {
-      return null;
-    }
-
     NhifApplication nhif_application = nhifApplicationRepository.findById(cardId).orElse(null);
-    if (nhif_application != null) {
+
+    System.out.println(nhifApplicationDto);
+    System.out.println("==============================START==============================");
+
+    if (nhifApplicationDto != null) {
       nhif_application.setCardNumber(nhifApplicationDto.getCardNumber());
       nhif_application.setIdentification_Number(nhifApplicationDto.getIdentification_Number());
       nhif_application.setControl_Number(nhifApplicationDto.getControl_Number());

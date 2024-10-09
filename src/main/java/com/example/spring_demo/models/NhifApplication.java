@@ -1,4 +1,5 @@
 package com.example.spring_demo.models;
+import com.example.spring_demo.validation.ValidateStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,7 +42,7 @@ public class NhifApplication {
   @Column(name = "amount",nullable = false)
   private String Amount;
 
-  @Column(name = "status",nullable = false)
+  @ValidateStatus(message = "Enter a valid status: It should be either Paid,Pending or Not Paid")
   private String status;
 
   @OneToOne

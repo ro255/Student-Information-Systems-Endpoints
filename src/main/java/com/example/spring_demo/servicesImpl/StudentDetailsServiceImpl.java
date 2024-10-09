@@ -4,20 +4,20 @@ import com.example.spring_demo.Dto.StudentDetailsDto;
 import com.example.spring_demo.models.StudentsDetails;
 import com.example.spring_demo.respositories.StudentDetailsRepository;
 import com.example.spring_demo.services.StudentDetailsService;
+import com.example.spring_demo.validator.ObjectValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
 public class StudentDetailsServiceImpl implements StudentDetailsService {
 
+  private final ObjectValidator validator;
   @Autowired
   private final StudentDetailsRepository studentDetailsRepository;
 
-  public StudentDetailsServiceImpl(StudentDetailsRepository studentDetailsRepository) {
+  public StudentDetailsServiceImpl(ObjectValidator validator, StudentDetailsRepository studentDetailsRepository) {
+    this.validator = validator;
     this.studentDetailsRepository = studentDetailsRepository;
 
   }
@@ -26,7 +26,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
   public StudentsDetails createDetails(StudentDetailsDto studentDetailsDto) {
     System.out.println("<============================START==========================>");
     System.out.println("<=========================INSIDE createDetails=============================>");
-
+//      validator.validate()
    StudentsDetails studentsDetails = new StudentsDetails();
    studentsDetails.setRegistrationNumber(studentDetailsDto.getRegistrationNumber());
    studentsDetails.setProgramme(studentDetailsDto.getProgramme());
@@ -38,16 +38,6 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
    studentsDetails.setDisability(studentDetailsDto.getDisability());
    studentsDetails.setFormIVIndex(studentDetailsDto.getFormIVIndex());
    studentsDetails.setDateOfBirth(studentDetailsDto.getDateOfBirth());
-
-//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-//
-//    try {
-//      LocalDate dateOfBirth = LocalDate.parse(studentDetailsDto.getDateOfBirth(), formatter);
-//      studentsDetails.setDateOfBirth(dateOfBirth);
-//    } catch (DateTimeParseException e) {
-//      System.out.println("Error parsing DateOfBirth: " + e.getMessage());
-//    }
-
 
     return  studentDetailsRepository.save(studentsDetails);
 
@@ -64,6 +54,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
     if(student_detail_id ==null) {
       return null;
     }
+
     StudentsDetails studentsDetails = studentDetailsRepository.findById(student_detail_id).orElse(null);
     if (studentsDetails != null) {
       studentsDetails.setRegistrationNumber(studentDetailsDto.getRegistrationNumber());
@@ -80,7 +71,6 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
       System.out.println(studentDetailsDto);
       System.out.println(studentsDetails);
       System.out.println("============================================END=================================================");
-//      studentsDetails.setDateOfBirth(LocalDate.parse(studentDetailsDto.getDateOfBirth()));
 
         return studentDetailsRepository.save(studentsDetails);
 

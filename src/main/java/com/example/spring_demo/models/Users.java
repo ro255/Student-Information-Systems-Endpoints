@@ -1,13 +1,15 @@
 package com.example.spring_demo.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
-
 
 @Entity
 @Table
@@ -23,13 +25,16 @@ public class Users implements UserDetails {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long userId;
 
-  @Column()
+  @Column(nullable = false)
+  @NotBlank(message = "Please provide a name")
   private String name;
 
-  @Column(unique = true)
+  @Column(unique = true, nullable = false)
+  @Email(message = "Provide a valid email address")
   private String email;
 
-  @Column
+  @Column(nullable = false)
+  @Size(min = 8, message = "Password must be at least 8 characters long")
   private String password;
 
   @Enumerated(EnumType.STRING)
@@ -49,5 +54,9 @@ public class Users implements UserDetails {
   public String getUsername() {
     return email;
   }
+
+  @OneToOne(mappedBy = "users", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+  @JoinColumn(name = "student_detail_id")
+  private StudentsDetails studentsDetails;
 
 }

@@ -20,7 +20,6 @@ public class NhifApplicationController {
 
   private static final Logger logger = LoggerFactory.getLogger(NhifApplicationController.class);
 
-
   @Autowired
   private final NhifApplicationService nhifApplicationService;
 
@@ -45,7 +44,7 @@ public class NhifApplicationController {
   }
 
   @PutMapping("/nhifCard/{cardId}")
-  public ResponseEntity<NhifApplication> UpdateNhifCard(@PathVariable Long cardId, @RequestBody NhifApplicationDto nhifApplicationDto){
+  public ResponseEntity<NhifApplication> UpdateNhifCard(@PathVariable Long cardId, @RequestBody   NhifApplicationDto nhifApplicationDto){
     NhifApplication nhifApplication = nhifApplicationService.UpdateNhifCard(cardId,nhifApplicationDto);
     return ResponseEntity.ok(nhifApplication);
 

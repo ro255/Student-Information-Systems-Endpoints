@@ -41,9 +41,11 @@ public class FinalResultController {
     FinalResult finalResult=finalResultService.updateResult(result_id,finalResultDto);
     return ResponseEntity.ok(finalResult);
  }
+
  @DeleteMapping("/result/{result_id}")
   public ResponseEntity<FinalResult> deleteResult(@PathVariable Long result_id){
     finalResultService.deleteResult(result_id);
     return ResponseEntity.ok().build();
+
  }
 }

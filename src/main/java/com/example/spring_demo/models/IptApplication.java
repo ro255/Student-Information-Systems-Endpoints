@@ -1,4 +1,5 @@
 package com.example.spring_demo.models;
+import com.example.spring_demo.validation.ValidateRegion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class IptApplication{
   @Column(name = "applied_date")
   private String appliedDate;
 
+  @ValidateRegion(message = "Enter a valid region")
   @Column(name = "region")
   private String region;
 
