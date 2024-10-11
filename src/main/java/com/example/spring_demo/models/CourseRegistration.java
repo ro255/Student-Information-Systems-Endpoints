@@ -1,17 +1,14 @@
 package com.example.spring_demo.models;
-
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import java.util.List;
 
-@Entity(name = "course_registration")
-@Table
+@Entity
+@Table(name = "course_registration")
 @Getter
 @Setter
 @RequiredArgsConstructor
-//@SQLDelete(sql = "UPDATE course_registration SET deleted = true WHERE id = ?")
+//@SQLDelete(sql = "UPDATE course_registration SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 //@Where(clause = "deleted = false")
 
 public class CourseRegistration {
@@ -32,12 +29,10 @@ public class CourseRegistration {
   @Column(name = "status")
   private  String status;
 
-  @ManyToMany(mappedBy = "courseRegistrations", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @ManyToMany(mappedBy = "courseRegistrations")
   private List<StudentsDetails> studentsDetails;
 
-  @OneToOne
-  @JoinColumn(name = "ca_id")
-  private CaResult caResult;
+  @OneToOne(mappedBy = "courseRegistration",fetch = FetchType.LAZY)
+  private CaResult ca_id;
 
-
-}
+ }

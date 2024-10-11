@@ -8,7 +8,8 @@ import java.util.List;
 @Service
 public interface StudentDetailsService {
 
-  StudentsDetails createDetails(StudentDetailsDto studentDetailsDto);
+    StudentsDetails createDetails(StudentDetailsDto studentDetailsDto);
+
 
   List<StudentsDetails> getAllStudentsDetails();
 

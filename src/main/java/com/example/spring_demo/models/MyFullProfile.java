@@ -5,18 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-
 import java.math.BigInteger;
 
-@Entity(name = "my_full_profile")
-@Table
+@Entity
+@Table(name = "my_full_profile")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@SQLDelete(sql = "UPDATE my_full_profile SET deleted = true WHERE id = ?")
+//@SQLDelete(sql = "UPDATE my_full_profile SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 //@Where(clause = "deleted = false")
 
 public class MyFullProfile {

@@ -2,7 +2,9 @@ package com.example.spring_demo.models;
 
 import com.example.spring_demo.validation.ValidateGender;
 import com.example.spring_demo.validation.ValidateProgramme;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,14 +15,15 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "student_details")
-@Table
-//@SQLDelete(sql = "UPDATE student_details SET deleted = true WHERE id = ?")
+@Entity
+@Table(name = "student_details")
+//@SQLDelete(sql = "UPDATE student_details SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 //@Where(clause = "deleted = false")
 
 public class StudentsDetails{
 
   @Id
+  @Column(name = "student_detail_id", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long student_detail_id;
 
@@ -31,6 +34,7 @@ public class StudentsDetails{
   @ValidateProgramme(message = "Enter a valid programme name:")
   private String Programme;
 
+  @Pattern(regexp = "(^(([2]{1}[5]{2})|([0]{1}))[1-9]{2}[0-9]{7}$)", message = "Please enter valid phone number eg. 255766040293")
   @Column(name = "mobile_number", nullable = false)
   private String  MobileNo;
 
@@ -55,25 +59,21 @@ public class StudentsDetails{
   @Column(name = "form_iv_index", nullable = false)
   private String FormIVIndex;
 
-  @OneToOne(fetch=FetchType.LAZY,cascade = CascadeType.ALL)
-  @JoinColumn(name = "user_id")
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
   private Users users;
 
   @OneToMany(mappedBy = "studentsDetails",cascade = CascadeType.ALL)
+  @JsonManagedReference
    private List<Accommodation> accommodation;
 
   @OneToMany(mappedBy = "studentsDetails",cascade = CascadeType.ALL)
   private List<CreateInvoice> createInvoices;
 
-  @ManyToMany
-  @JoinTable(
-    name = "studentDetails_nhifApplication",
-    joinColumns = @JoinColumn(name = "student_detail_id"),
-    inverseJoinColumns = @JoinColumn(name = "cardId")
-  )
-  private List<NhifApplication> nhifApplications;
+  @OneToOne(mappedBy = "studentsDetails",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+  private NhifApplication nhifApplication;
 
-  @ManyToMany
+  @ManyToMany(cascade = {CascadeType.ALL})
   @JoinTable(
     name = "studentDetails_courseRegistration",
     joinColumns = @JoinColumn(name = "student_detail_id"),
@@ -84,12 +84,15 @@ public class StudentsDetails{
   @OneToMany(mappedBy = "studentsDetails", cascade = CascadeType.ALL)
   private List<IptApplication> iptApplication;
 
-  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,mappedBy = "studentsDetails")
-  @JoinColumn(name = "result_id")
+  @OneToOne(mappedBy = "studentsDetails")
   private FinalResult finalResult;
 
-  @OneToOne(mappedBy = "studentsDetails",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  @JoinColumn(name = "ca_id")
+  @OneToOne(mappedBy = "studentsDetails")
   private CaResult caResult;
+
+  public Long setUserId(Long userId) {
+    return userId;
+
+  }
 
 }

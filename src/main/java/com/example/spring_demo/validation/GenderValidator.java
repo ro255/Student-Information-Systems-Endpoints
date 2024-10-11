@@ -12,4 +12,5 @@ public class GenderValidator implements ConstraintValidator<ValidateGender,Strin
     List<String> gender= Arrays.asList("Female","Male");
     return gender.contains(Gender);
   }
+
 }

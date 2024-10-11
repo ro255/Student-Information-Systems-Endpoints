@@ -14,6 +14,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+//@SQLDelete(sql = "UPDATE final_results SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+//@Where(clause = "deleted = false")
 
 public class FinalResult {
 
@@ -39,8 +41,8 @@ public class FinalResult {
   @ValidateRemark(message = "Enter a valid remark:")
   private String remark;
 
-  @OneToOne
-  @JoinColumn(name = "student_detail_id")
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "student_detail_id",referencedColumnName = "student_detail_id")
   private StudentsDetails studentsDetails;
 
 }

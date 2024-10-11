@@ -3,7 +3,6 @@ package com.example.spring_demo.conntroller;
 import com.example.spring_demo.Dto.CourseRegistrationDto;
 import com.example.spring_demo.models.CourseRegistration;
 import com.example.spring_demo.services.CourseRegistrationService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +26,7 @@ public class CourseRegistrationController {
 
   }
 
-  @GetMapping("/register course")
+  @GetMapping("/register_course")
   public ResponseEntity<List<CourseRegistration>> getRegisterCourse() {
     List<CourseRegistration> courseRegistrations = courseRegistrationService.getRegisterCourse();
     return ResponseEntity.ok(courseRegistrations);

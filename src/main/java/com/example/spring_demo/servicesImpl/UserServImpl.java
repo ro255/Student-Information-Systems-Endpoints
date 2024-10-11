@@ -1,5 +1,6 @@
 package com.example.spring_demo.servicesImpl;
 import com.example.spring_demo.Dto.UsersRequestDto;
+import com.example.spring_demo.models.StudentsDetails;
 import com.example.spring_demo.models.Users;
 import com.example.spring_demo.responses.LoginResponse;
 import com.example.spring_demo.responses.RegisterResponse;
@@ -17,13 +18,8 @@ public class UserServImpl implements UserServices {
   @Autowired
   private UsersRepository usersRepository;
 
-  /**
-   * @param users
-   * @return
-   */
   @Override
   public RegisterResponse<UsersRequestDto> register(UsersRequestDto users) {
-
 
     Users user = new Users();
     user.setUserId(user.getUserId());
@@ -36,10 +32,6 @@ public class UserServImpl implements UserServices {
     return new RegisterResponse<>("User registered", users);
   }
 
-  /**
-   * @param user
-   * @return
-   */
   @Override
   public LoginResponse<UsersRequestDto> login(UsersRequestDto user) {
 

@@ -12,16 +12,19 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+//@SQLDelete(sql = "UPDATE users SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
+//@Where(clause = "deleted = false")
 
 public class Users implements UserDetails {
 
   @Id
+  @Column(name = "user_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long userId;
 
@@ -30,7 +33,7 @@ public class Users implements UserDetails {
   private String name;
 
   @Column(unique = true, nullable = false)
-  @Email(message = "Provide a valid email address")
+  @Email(message = "Provide a valid email address or email already exists")
   private String email;
 
   @Column(nullable = false)
@@ -55,8 +58,7 @@ public class Users implements UserDetails {
     return email;
   }
 
-  @OneToOne(mappedBy = "users", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-  @JoinColumn(name = "student_detail_id")
+  @OneToOne(mappedBy = "users", cascade = CascadeType.ALL, orphanRemoval = true)
   private StudentsDetails studentsDetails;
 
-}
+  }

@@ -4,15 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
-@Entity(name = "invoice_list")
-@Table
+@Entity
+@Table(name = "invoice_list")
 @Getter
 @Setter
 @NoArgsConstructor
-//@SQLDelete(sql = "UPDATE invoice_list SET deleted = true WHERE id = ?")
+//@SQLDelete(sql = "UPDATE invoice_list SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 //@Where(clause = "deleted = false")
 
 public class InvoiceList {
@@ -21,9 +19,8 @@ public class InvoiceList {
   @GeneratedValue
   private Long invoiceListId;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "invoiceId")
   private CreateInvoice createInvoice;
-
 
 }

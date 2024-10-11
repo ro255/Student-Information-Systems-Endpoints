@@ -7,16 +7,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 
-@Entity(name = "create_invoice")
-@Table
+@Entity
+@Table(name = "create_invoice")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@SQLDelete(sql = "UPDATE create_invoice SET deleted = true WHERE id = ?")
+//@SQLDelete(sql = "UPDATE create_invoice SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 //@Where(clause = "deleted = false")
 
 public class CreateInvoice {
@@ -40,13 +38,10 @@ public class CreateInvoice {
   private String status;
 
   @ManyToOne
-  @JoinColumn(name = "student_detail_id")
+  @JoinColumn(name = "student_detail_id",referencedColumnName = "student_detail_id")
   private StudentsDetails studentsDetails;
 
-  @OneToOne
-  @JoinColumn(name = "invoiceListId")
+  @OneToOne(mappedBy = "createInvoice",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
   private InvoiceList invoiceList;
-
-
 
 }

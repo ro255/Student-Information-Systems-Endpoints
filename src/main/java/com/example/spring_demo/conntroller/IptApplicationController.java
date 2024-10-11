@@ -3,7 +3,6 @@ package com.example.spring_demo.conntroller;
 import com.example.spring_demo.Dto.IptApplicationDto;
 import com.example.spring_demo.models.IptApplication;
 import com.example.spring_demo.services.IptApplicationService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

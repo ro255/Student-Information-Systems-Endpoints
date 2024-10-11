@@ -17,7 +17,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 
 public class NhifApplicationController {
-
   private static final Logger logger = LoggerFactory.getLogger(NhifApplicationController.class);
 
   @Autowired

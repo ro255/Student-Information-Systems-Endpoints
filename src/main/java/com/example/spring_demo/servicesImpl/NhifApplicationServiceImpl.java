@@ -11,10 +11,10 @@ import java.util.List;
 @Service
 public class NhifApplicationServiceImpl implements NhifApplicationService {
 
-  @Autowired
+ @Autowired
   private final NhifApplicationRepository nhifApplicationRepository;
 
-  public NhifApplicationServiceImpl(NhifApplicationRepository nhifApplicationRepository) {
+  public NhifApplicationServiceImpl( NhifApplicationRepository nhifApplicationRepository) {
     this.nhifApplicationRepository = nhifApplicationRepository;
 
   }
@@ -29,15 +29,13 @@ public class NhifApplicationServiceImpl implements NhifApplicationService {
     nhif_application.setNHIF_SubmissionTime(nhifApplicationDto.getNHIF_SubmissionTime());
     nhif_application.setStatus(nhifApplicationDto.getStatus());
     nhif_application.setAmount(nhifApplicationDto.getAmount());
-    nhif_application.setCardNumber(String.valueOf(nhifApplicationDto.getCardNumber()));
-    nhif_application.setIdentification_Number(String.valueOf(nhifApplicationDto.getIdentification_Number()));
-    nhif_application.setControl_Number(String.valueOf(nhifApplicationDto.getControl_Number()));
-    nhif_application.setCategory(String.valueOf(nhifApplicationDto.getCategory()));
+    nhif_application.setCardNumber(nhifApplicationDto.getCardNumber());
+    nhif_application.setIdentification_Number(nhifApplicationDto.getIdentification_Number());
+    nhif_application.setControl_Number(nhifApplicationDto.getControl_Number());
+    nhif_application.setCategory(nhifApplicationDto.getCategory());
 
     System.out.println(nhifApplicationDto.getCategory());
-
-
-    System.out.println("====================END==============================");
+    System.out.println("========================END=============================");
     nhifApplicationRepository.save(nhif_application);
     return nhif_application;
 
@@ -62,7 +60,6 @@ public class NhifApplicationServiceImpl implements NhifApplicationService {
   @Override
   public NhifApplication UpdateNhifCard(Long cardId, NhifApplicationDto nhifApplicationDto) {
     NhifApplication nhif_application = nhifApplicationRepository.findById(cardId).orElse(null);
-
     System.out.println(nhifApplicationDto);
     System.out.println("==============================START==============================");
 
@@ -80,11 +77,9 @@ public class NhifApplicationServiceImpl implements NhifApplicationService {
      System.out.println(nhif_application);
      System.out.println("====================END============================");
 
-      nhifApplicationRepository.save(nhif_application);
-      return nhif_application;
+      return nhifApplicationRepository.save(nhif_application);
 
     } else{
-
       return null;
 
     }

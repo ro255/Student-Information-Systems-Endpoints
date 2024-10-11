@@ -1,13 +1,12 @@
 package com.example.spring_demo.auth;
 
+import com.example.spring_demo.config.JwtServices;
 import com.example.spring_demo.models.Users;
 import com.example.spring_demo.responses.ApiResponse;
 import com.example.spring_demo.respositories.UsersRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,22 +20,20 @@ public class AuthenticationController {
 
   private final AuthenticationService service;
   private final UsersRepository usersRepository;
+  private final JwtServices jwtServices;
+  private  Users users;
 
   @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(@RequestBody @Valid RegisterRequest request, BindingResult bindingResult) {
-//    if (bindingResult.hasErrors()) {
-//      return ResponseEntity.badRequest().body("Validation failed");
-//    }
-
+  public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
     try {
-      AuthenticationResponse response= service.register(request) ;
+      AuthenticationResponse response= service.register(request).getData();
       ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
         HttpStatus.OK.value(),
         "User registered Successfully",
         response
       );
 
-      return  ResponseEntity.ok(apiResponse.getData());
+      return  ResponseEntity.ok().body(response);
     } catch (Exception e) {
       ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
         HttpStatus.BAD_REQUEST.value(),
@@ -49,8 +46,6 @@ public class AuthenticationController {
 
   }
 
-
-
   @GetMapping("/users")
   public ResponseEntity<List<Users>> getAllUsers() {
     List<Users> users=usersRepository.findAll();
@@ -58,73 +53,69 @@ public class AuthenticationController {
       throw new NoSuchElementException("No users found");
     }
 
-  try {
-  ApiResponse<List<Users>> apiResponse= new ApiResponse<>(
-    HttpStatus.OK.value(),
-    "Users retrieved successfully",
-    users
-  );
+    try {
+      ApiResponse<List<Users>> apiResponse= new ApiResponse<>(
+        HttpStatus.OK.value(),
+        "Users retrieved successfully",
+        users
+      );
 
-  return ResponseEntity.ok(apiResponse.getData());
-  }
-  catch (Exception e) {
-  ApiResponse<List<Users>> apiResponse= new ApiResponse<>(
-    HttpStatus.BAD_REQUEST.value(),
-    "Users not found",
-    null
-  );
+      return ResponseEntity.ok(apiResponse.getData());
+    }
+    catch (Exception e) {
+      ApiResponse<List<Users>> apiResponse= new ApiResponse<>(
+        HttpStatus.BAD_REQUEST.value(),
+        "Users not found",
+        null
+      );
 
-  return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
+      return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
     }
 
   }
 
-
   @PutMapping("/register/{userId}")
   public ResponseEntity<AuthenticationResponse> updateUser(@PathVariable Long userId, @RequestBody RegisterRequest request) {
     try {
-    Users user = usersRepository.findById(userId).orElseThrow(() ->
-      new NoSuchElementException("User not found with ID:"+userId));
-       user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-          usersRepository.save(user);
+      Users user = usersRepository.findById(userId).orElseThrow(() ->
+        new NoSuchElementException("User not found with ID:"+userId));
+      user.setName(request.getName());
+      user.setEmail(request.getEmail());
+      user.setPassword(request.getPassword());
+      usersRepository.save(user);
 
-            AuthenticationResponse response= service.updateUser(request);
-            ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
-              HttpStatus.OK.value(),
-              "User updated successfully",
-              response
-            );
+      AuthenticationResponse response= service.updateUser(request);
+      ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
+        HttpStatus.OK.value(),
+        "User updated successfully",
+        response
+      );
 
-            return ResponseEntity.ok(apiResponse.getData());
-          } catch (Exception e) {
-            ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
-              HttpStatus.BAD_REQUEST.value(),
-              "Fail to update user",
-              null
-            );
+      return ResponseEntity.ok().body(response);
+    } catch (Exception e) {
+      ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
+        HttpStatus.BAD_REQUEST.value(),
+        "Fail to update user",
+        null
+      );
 
-            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
-          }
+      return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
+    }
   }
-
 
   @DeleteMapping("/register/{userId}")
   public ResponseEntity<Void> deleteUser(@PathVariable Long userId) {
-
     try{
-    Users user = usersRepository.findById(userId).orElseThrow(()->
-      new NoSuchElementException("User not found with ID:"+userId));
-    usersRepository.delete(user);
-
+      Users user = usersRepository.findById(userId).orElseThrow(()->
+        new NoSuchElementException("User not found with ID:"+userId));
+      usersRepository.delete(user);
 
       ApiResponse<Void> apiResponse= new ApiResponse<>(
         HttpStatus.OK.value(),
         "User deleted successfully",
         null
       );
-      return ResponseEntity.ok(apiResponse.getData());
+      return ResponseEntity.ok().build();
     } catch (Exception e) {
       ApiResponse<Void> apiResponse= new ApiResponse<>(
         HttpStatus.BAD_REQUEST.value(),
@@ -137,23 +128,30 @@ public class AuthenticationController {
 
   @PostMapping("/login")
   public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
+    try{
+      AuthenticationResponse response= service.login(request);
+      ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
+        HttpStatus.OK.value(),
+        "User Login successfully",
+        response
+      );
 
-   try{
-     AuthenticationResponse response= service.login(request);
-     ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
-       HttpStatus.OK.value(),
-       "User Login successfully",
-       response
-     );
-     return  ResponseEntity.ok(apiResponse.getData());
-   } catch (Exception e) {
-     ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
-       HttpStatus.BAD_REQUEST.value(),
-       "Incorrect email or password",
-       null
-     );
-     return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
-   }
+      String username=jwtServices.extractUsername(response.getToken());
+      Users user = usersRepository.findByEmail(username).orElseThrow(() ->
+        new NoSuchElementException("User not found with ID:"+username));
+
+      System.out.println(user.getUserId());
+
+      return  ResponseEntity.ok().body(response);
+    } catch (Exception e) {
+      ApiResponse<AuthenticationResponse> apiResponse= new ApiResponse<>(
+        HttpStatus.BAD_REQUEST.value(),
+        "Incorrect email or password",
+        null
+      );
+      return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse.getData());
+    }
 
   }
+
 }

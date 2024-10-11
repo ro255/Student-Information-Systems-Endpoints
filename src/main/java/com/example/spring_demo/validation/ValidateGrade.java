@@ -10,7 +10,9 @@ import java.lang.annotation.*;
 @Documented
 @Constraint(validatedBy = GradeValidator.class)
 public @interface ValidateGrade {
+
   public String message() default "Enter the valid grade:It should be either A,B,C or SUPP";
   Class<?>[] groups() default {};
   Class<? extends Payload>[] payload() default {};
+
 }

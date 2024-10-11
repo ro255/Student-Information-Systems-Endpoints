@@ -11,5 +11,7 @@ public class StatusValidator implements ConstraintValidator<ValidateStatus,Strin
   public boolean isValid(String Status, ConstraintValidatorContext constraintValidatorContext) {
     List<String> status= Arrays.asList("Paid","Pending","Not Paid");
     return status.contains(Status);
+
   }
+
 }

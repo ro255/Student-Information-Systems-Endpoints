@@ -4,20 +4,17 @@ import com.example.spring_demo.Dto.StudentDetailsDto;
 import com.example.spring_demo.models.StudentsDetails;
 import com.example.spring_demo.respositories.StudentDetailsRepository;
 import com.example.spring_demo.services.StudentDetailsService;
-import com.example.spring_demo.validator.ObjectValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentDetailsServiceImpl implements StudentDetailsService {
+public  class StudentDetailsServiceImpl implements StudentDetailsService {
 
-  private final ObjectValidator validator;
   @Autowired
   private final StudentDetailsRepository studentDetailsRepository;
 
-  public StudentDetailsServiceImpl(ObjectValidator validator, StudentDetailsRepository studentDetailsRepository) {
-    this.validator = validator;
+  public StudentDetailsServiceImpl(StudentDetailsRepository studentDetailsRepository) {
     this.studentDetailsRepository = studentDetailsRepository;
 
   }
@@ -26,18 +23,18 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
   public StudentsDetails createDetails(StudentDetailsDto studentDetailsDto) {
     System.out.println("<============================START==========================>");
     System.out.println("<=========================INSIDE createDetails=============================>");
-//      validator.validate()
-   StudentsDetails studentsDetails = new StudentsDetails();
-   studentsDetails.setRegistrationNumber(studentDetailsDto.getRegistrationNumber());
-   studentsDetails.setProgramme(studentDetailsDto.getProgramme());
-   studentsDetails.setNationality(studentDetailsDto.getNationality());
-   studentsDetails.setGender(studentDetailsDto.getGender());
-   studentsDetails.setYearOfStudy(studentDetailsDto.getYearOfStudy());
-   studentsDetails.setProfile(studentDetailsDto.getProfile());
-   studentsDetails.setMobileNo(studentDetailsDto.getMobileNo());
-   studentsDetails.setDisability(studentDetailsDto.getDisability());
-   studentsDetails.setFormIVIndex(studentDetailsDto.getFormIVIndex());
-   studentsDetails.setDateOfBirth(studentDetailsDto.getDateOfBirth());
+
+    StudentsDetails studentsDetails = new StudentsDetails();
+    studentsDetails.setRegistrationNumber(studentDetailsDto.getRegistrationNumber());
+    studentsDetails.setProgramme(studentDetailsDto.getProgramme());
+    studentsDetails.setNationality(studentDetailsDto.getNationality());
+    studentsDetails.setGender(studentDetailsDto.getGender());
+    studentsDetails.setYearOfStudy(studentDetailsDto.getYearOfStudy());
+    studentsDetails.setProfile(studentDetailsDto.getProfile());
+    studentsDetails.setMobileNo(studentDetailsDto.getMobileNo());
+    studentsDetails.setDisability(studentDetailsDto.getDisability());
+    studentsDetails.setFormIVIndex(studentDetailsDto.getFormIVIndex());
+    studentsDetails.setDateOfBirth(studentDetailsDto.getDateOfBirth());
 
     return  studentDetailsRepository.save(studentsDetails);
 
@@ -72,7 +69,7 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
       System.out.println(studentsDetails);
       System.out.println("============================================END=================================================");
 
-        return studentDetailsRepository.save(studentsDetails);
+      return studentDetailsRepository.save(studentsDetails);
 
     } else {
       return null;
@@ -89,4 +86,5 @@ public class StudentDetailsServiceImpl implements StudentDetailsService {
     studentDetailsRepository.deleteById(student_detail_id);
 
   }
+
 }

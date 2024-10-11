@@ -15,6 +15,7 @@ public class InvoiceListServiceImpl implements InvoiceListService {
 
   public InvoiceListServiceImpl(InvoiceListRepository invoiceListRepository) {
     this.invoiceListRepository = invoiceListRepository;
+
   }
 
   @Override

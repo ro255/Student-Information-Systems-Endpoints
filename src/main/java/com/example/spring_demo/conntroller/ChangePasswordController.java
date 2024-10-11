@@ -2,11 +2,9 @@ package com.example.spring_demo.conntroller;
 
 import com.example.spring_demo.Dto.ChangePasswordDto;
 import com.example.spring_demo.services.ChangePasswordService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.security.Principal;
 
 @RestController
@@ -25,7 +23,6 @@ public class ChangePasswordController {
       return ResponseEntity.ok().build();
 
   }
-
 
 }
 

@@ -10,5 +10,4 @@ import org.springframework.stereotype.Repository;
 
 public interface StudentDetailsRepository extends JpaRepository<StudentsDetails, Long> {
 
-
 }

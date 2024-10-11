@@ -1,7 +1,6 @@
 package com.example.spring_demo.conntroller;
 
 import com.example.spring_demo.models.InvoiceList;
-import com.example.spring_demo.respositories.InvoiceListRepository;
 import com.example.spring_demo.services.InvoiceListService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

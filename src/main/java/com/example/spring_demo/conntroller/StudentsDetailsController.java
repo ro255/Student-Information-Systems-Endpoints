@@ -24,7 +24,6 @@ public class StudentsDetailsController {
   }
 
   @PostMapping("/studentDetails")
-
   public ResponseEntity<StudentsDetails> createDetails(@RequestBody StudentDetailsDto studentDetailsDto) {
     System.out.println("studentDetailsDto"+studentDetailsDto);
     if (studentDetailsDto == null) {
@@ -32,7 +31,6 @@ public class StudentsDetailsController {
     }
     StudentsDetails studentsDetails = studentDetailsService.createDetails(studentDetailsDto);
     return ResponseEntity.ok(studentsDetails);
-
   }
 
   @GetMapping("/details_students")
