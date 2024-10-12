@@ -92,22 +92,22 @@ public LoginResponse<AuthenticationResponse> register(RegisterRequest request) {
 
   usersRepository.save(user);
 
-  // Build and save the student details
-  StudentsDetails studentsDetails = new StudentsDetails();
-  studentsDetails.setUserId(user.getUserId());
-  studentsDetails.setRegistrationNumber("REG123");
-  studentsDetails.setProgramme("Computer Science");
-  studentsDetails.setMobileNo("255766040293");
-  studentsDetails.setGender("Male");
-  studentsDetails.setNationality("Tanzania");
-  studentsDetails.setDateOfBirth("1998-01-01");
-  studentsDetails.setProfile("profile.jpg");
-  studentsDetails.setDisability("None");
-  studentsDetails.setYearOfStudy("3");
-  studentsDetails.setFormIVIndex("S1234567");
-  studentsDetails.setUsers(user);
-
-  studentsDetailsRepository.save(studentsDetails);
+//  // Build and save the student details
+//  StudentsDetails studentsDetails = new StudentsDetails();
+////  studentsDetails.setUserId(user.getUserId());
+//  studentsDetails.setRegistrationNumber("REG123");
+//  studentsDetails.setProgramme("Computer Science");
+//  studentsDetails.setMobileNo("255766040293");
+//  studentsDetails.setGender("Male");
+//  studentsDetails.setNationality("Tanzania");
+//  studentsDetails.setDateOfBirth("1998-01-01");
+//  studentsDetails.setProfile("profile.jpg");
+//  studentsDetails.setDisability("None");
+//  studentsDetails.setYearOfStudy("3");
+//  studentsDetails.setFormIVIndex("S1234567");
+//  studentsDetails.setUsers(user);
+//
+//  studentsDetailsRepository.save(studentsDetails);
 
   // Generate JWT token
   var jwtToken = jwtServices.generateToken(user);
@@ -120,18 +120,18 @@ public LoginResponse<AuthenticationResponse> register(RegisterRequest request) {
     .role(user.getRole())
     .build();
 
-  StudentDetailsResponse studentDetailsResponse = StudentDetailsResponse.builder()
-    .registrationNumber(studentsDetails.getRegistrationNumber())
-    .programme(studentsDetails.getProgramme())
-    .mobileNo(studentsDetails.getMobileNo())
-    .gender(studentsDetails.getGender())
-    .nationality(studentsDetails.getNationality())
-    .dateOfBirth(studentsDetails.getDateOfBirth())
-    .profile(studentsDetails.getProfile())
-    .disability(studentsDetails.getDisability())
-    .yearOfStudy(studentsDetails.getYearOfStudy())
-    .formIVIndex(studentsDetails.getFormIVIndex())
-    .build();
+//  StudentDetailsResponse studentDetailsResponse = StudentDetailsResponse.builder()
+//    .registrationNumber(studentsDetails.getRegistrationNumber())
+//    .programme(studentsDetails.getProgramme())
+//    .mobileNo(studentsDetails.getMobileNo())
+//    .gender(studentsDetails.getGender())
+//    .nationality(studentsDetails.getNationality())
+//    .dateOfBirth(studentsDetails.getDateOfBirth())
+//    .profile(studentsDetails.getProfile())
+//    .disability(studentsDetails.getDisability())
+//    .yearOfStudy(studentsDetails.getYearOfStudy())
+//    .formIVIndex(studentsDetails.getFormIVIndex())
+//    .build();
 
   // Build AuthenticationResponse containing user and student details
   AuthenticationResponse authResponse = AuthenticationResponse.builder()
@@ -139,7 +139,7 @@ public LoginResponse<AuthenticationResponse> register(RegisterRequest request) {
     .message("Registration successful")
     .statusCode(201)
     .user(userResponse)
-    .studentDetails(studentDetailsResponse)
+//    .studentDetails(studentDetailsResponse)
     .build();
 
   // Wrap the AuthenticationResponse in a LoginResponse

@@ -3,7 +3,6 @@ package com.example.spring_demo.conntroller;
 import com.example.spring_demo.Dto.CreateInvoiceDto;
 import com.example.spring_demo.models.CreateInvoice;
 import com.example.spring_demo.services.CreateInvoiceService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +19,13 @@ public class CreateInvoiceController {
   @Autowired
   private final CreateInvoiceService createInvoiceService;
 
-  @PostMapping("/create_invoice")
-  public ResponseEntity<CreateInvoice>  createInvoices(@RequestBody CreateInvoiceDto createInvoiceDto){
+  @PostMapping("/create_invoice/{student_detail_id}")
+  public ResponseEntity<CreateInvoice>  createInvoices(@PathVariable Long student_detail_id , @RequestBody CreateInvoiceDto createInvoiceDto){
     System.out.println(createInvoiceDto);
     System.out.println("==========================");
 
-    CreateInvoice createInvoice= createInvoiceService.createInvoices(createInvoiceDto);
-   return ResponseEntity.ok(createInvoice);
+    CreateInvoice createInvoice= createInvoiceService.createInvoices(student_detail_id,createInvoiceDto);
+    return ResponseEntity.ok(createInvoice);
 
   }
 
@@ -47,6 +46,7 @@ public class CreateInvoiceController {
   public ResponseEntity<Void> deleteInvoice(@PathVariable Long invoiceId){
     createInvoiceService.deleteInvoice(invoiceId);
     return ResponseEntity.ok().build();
+
   }
 
 }

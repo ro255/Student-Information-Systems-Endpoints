@@ -15,7 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 //@SQLDelete(sql = "UPDATE nhif_application SET deleted = true WHERE id = ?", check = ResultCheckStyle.COUNT)
 //@Where(clause = "deleted = false")
-
 public class NhifApplication {
 
   @Id

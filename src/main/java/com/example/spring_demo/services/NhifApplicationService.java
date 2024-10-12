@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface NhifApplicationService {
 
-  NhifApplication nhifApplications(NhifApplicationDto nhifApplicationDto);
+  NhifApplication nhifApplications(Long student_detail_id, NhifApplicationDto nhifApplicationDto);
 
   List<NhifApplication> getAllApplicants();
 

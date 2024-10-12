@@ -34,16 +34,18 @@ public class AccommodationServiceImpl implements AccommodationService {
   }
 
   @Override
-  public Accommodation createAccommodation(AccommodationRequestDto accommodationRequestDto) {
-//StudentsDetails student = studentDetailsRepository.findById(student_detail_id).orElseThrow(() -> new RuntimeException("Student not found"));
+  public Accommodation createAccommodation(Long student_detail_id, AccommodationRequestDto accommodationRequestDto) {
+
+    StudentsDetails student = studentDetailsRepository.findById(student_detail_id)
+      .orElseThrow(() -> new RuntimeException("Student not found"));
 
     Accommodation accommodation = new Accommodation();
     accommodation.setResidential(accommodationRequestDto.getResidential());
     accommodation.setAccommodationStatus(accommodationRequestDto.getAccommodationStatus());
 
-//accommodation.setStudentsDetails(student);
-    return accommodationRepository.save(accommodation);
+    accommodation.setStudentsDetails(student);
 
+    return accommodationRepository.save(accommodation);
   }
 
   @Override

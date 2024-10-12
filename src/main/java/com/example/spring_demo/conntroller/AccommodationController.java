@@ -20,12 +20,13 @@ public class AccommodationController {
   @Autowired
   private AccommodationService accommodationService;
 
-  @PostMapping("/accommodations")
-  public ResponseEntity<Accommodation> createAccommodation(@RequestBody  AccommodationRequestDto accommodationRequestDto) {
-    Accommodation accommodation = accommodationService.createAccommodation(accommodationRequestDto);
+  @PostMapping("/accommodations/{student_detail_id}")
+  public ResponseEntity<Accommodation> createAccommodation(@PathVariable Long student_detail_id, @RequestBody AccommodationRequestDto accommodationRequestDto) {
+    Accommodation accommodation = accommodationService.createAccommodation(student_detail_id, accommodationRequestDto);
     return ResponseEntity.ok(accommodation);
 
   }
+
 
   @GetMapping("/accommodations/{student_detail_id}")
   public ResponseEntity<List<Accommodation>> getAccommodationsByStudent(@PathVariable Long student_detail_id) {

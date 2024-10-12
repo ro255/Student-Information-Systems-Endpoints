@@ -8,8 +8,7 @@ import java.util.List;
 @Service
 public interface StudentDetailsService {
 
-    StudentsDetails createDetails(StudentDetailsDto studentDetailsDto);
-
+  StudentsDetails createDetails(StudentDetailsDto studentDetailsDto, Long userId);
 
   List<StudentsDetails> getAllStudentsDetails();
 
@@ -17,4 +16,4 @@ public interface StudentDetailsService {
 
   void deleteStudentDetails(Long student_detail_id);
 
-}
+ }

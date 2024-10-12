@@ -38,7 +38,7 @@ public class CreateInvoice {
   private String status;
 
   @ManyToOne
-  @JoinColumn(name = "student_detail_id",referencedColumnName = "student_detail_id")
+  @JoinColumn(name = "student_detail_id", referencedColumnName = "student_detail_id")
   private StudentsDetails studentsDetails;
 
   @OneToOne(mappedBy = "createInvoice",cascade = CascadeType.ALL,fetch = FetchType.LAZY)

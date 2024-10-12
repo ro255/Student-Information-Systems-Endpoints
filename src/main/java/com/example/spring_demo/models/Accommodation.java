@@ -28,10 +28,11 @@ public class Accommodation {
   @Column(name = "accommodation_status")
   private String accommodation_status;
 
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "student_detail_id",referencedColumnName = "student_detail_id",nullable = false)
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "student_detail_id", referencedColumnName = "student_detail_id")
   @JsonBackReference
   private StudentsDetails studentsDetails;
+
 
   public void setAccommodationStatus(Object accommodationStatus) {
     this.accommodation_status = accommodationStatus.toString();

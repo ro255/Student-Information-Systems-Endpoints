@@ -11,14 +11,10 @@ import java.util.List;
 @Transactional
 public interface AccommodationService {
 
-  Accommodation createAccommodation(AccommodationRequestDto accommodationRequestDto);
-
-  Accommodation updateAccommodation(Long accommodationId, AccommodationRequestDto accommodationRequestDto);
-
-  void deleteAccommodation(Long accommodationId);
-
+  List<Accommodation> getAccommodationByStudentId(Long student_detail_id);
   StudentsDetails getStudentByAccommodationId(Long accommodationId);
-
-  List<Accommodation> getAccommodationByStudentId(Long studentDetailId);
-
+  Accommodation createAccommodation(Long student_detail_id, AccommodationRequestDto accommodationRequestDto); // Modified
+  Accommodation updateAccommodation(Long accommodationId, AccommodationRequestDto accommodationRequestDto);
+  void deleteAccommodation(Long accommodationId);
 }
+

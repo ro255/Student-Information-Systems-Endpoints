@@ -59,18 +59,18 @@ public class StudentsDetails{
   @Column(name = "form_iv_index", nullable = false)
   private String FormIVIndex;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id", referencedColumnName = "user_id")
   private Users users;
 
-  @OneToMany(mappedBy = "studentsDetails",cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "studentsDetails", cascade = CascadeType.ALL)
   @JsonManagedReference
-   private List<Accommodation> accommodation;
+  private Accommodation accommodation;
 
-  @OneToMany(mappedBy = "studentsDetails",cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "studentsDetails", cascade = CascadeType.ALL)
   private List<CreateInvoice> createInvoices;
 
-  @OneToOne(mappedBy = "studentsDetails",fetch=FetchType.LAZY,cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "studentsDetails",cascade = CascadeType.ALL)
   private NhifApplication nhifApplication;
 
   @ManyToMany(cascade = {CascadeType.ALL})
@@ -89,10 +89,5 @@ public class StudentsDetails{
 
   @OneToOne(mappedBy = "studentsDetails")
   private CaResult caResult;
-
-  public Long setUserId(Long userId) {
-    return userId;
-
-  }
 
 }

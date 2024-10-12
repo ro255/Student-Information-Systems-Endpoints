@@ -2,6 +2,7 @@ package com.example.spring_demo.conntroller;
 
 import com.example.spring_demo.Dto.StudentDetailsDto;
 import com.example.spring_demo.models.StudentsDetails;
+import com.example.spring_demo.models.Users;
 import com.example.spring_demo.services.StudentDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +24,16 @@ public class StudentsDetailsController {
     this.studentDetailsService = studentDetailsService;
   }
 
-  @PostMapping("/studentDetails")
-  public ResponseEntity<StudentsDetails> createDetails(@RequestBody StudentDetailsDto studentDetailsDto) {
-    System.out.println("studentDetailsDto"+studentDetailsDto);
+  @PostMapping("/studentDetails/{userId}")
+  public ResponseEntity<Users> createDetails(@PathVariable Long userId, @RequestBody StudentDetailsDto studentDetailsDto) {
     if (studentDetailsDto == null) {
       return ResponseEntity.badRequest().body(null);
     }
-    StudentsDetails studentsDetails = studentDetailsService.createDetails(studentDetailsDto);
-    return ResponseEntity.ok(studentsDetails);
+
+    // Call the service to create student details and associate with the user
+    StudentsDetails studentsDetails = studentDetailsService.createDetails(studentDetailsDto, userId);
+
+    return ResponseEntity.ok(studentsDetails.getUsers());
   }
 
   @GetMapping("/details_students")

@@ -13,6 +13,7 @@ import java.util.List;
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
   List<Accommodation> findByStudentsDetails(StudentsDetails studentsDetails);
+
 }
 
 

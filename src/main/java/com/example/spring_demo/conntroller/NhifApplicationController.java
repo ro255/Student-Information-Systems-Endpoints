@@ -22,15 +22,16 @@ public class NhifApplicationController {
   @Autowired
   private final NhifApplicationService nhifApplicationService;
 
-  @PostMapping("/nhifCard")
-  public ResponseEntity<NhifApplication> nhifApplications(@RequestBody NhifApplicationDto nhifApplicationDto) {
+  @PostMapping("/nhifCard/{student_detail_id}")
+  public ResponseEntity<NhifApplication> nhifApplications(@PathVariable Long student_detail_id,@RequestBody NhifApplicationDto nhifApplicationDto) {
     logger.info("Received NhifApplicationDto: {}", nhifApplicationDto);
 
     if (nhifApplicationDto == null) {
       logger.error("NhifApplicationDto is null");
       return ResponseEntity.badRequest().body(null);
     }
-    NhifApplication nhifApplication = nhifApplicationService.nhifApplications(nhifApplicationDto);
+
+    NhifApplication nhifApplication = nhifApplicationService.nhifApplications(student_detail_id,nhifApplicationDto);
     return ResponseEntity.ok(nhifApplication);
 
   }

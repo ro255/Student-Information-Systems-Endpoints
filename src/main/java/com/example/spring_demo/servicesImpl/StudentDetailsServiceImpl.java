@@ -2,7 +2,9 @@ package com.example.spring_demo.servicesImpl;
 
 import com.example.spring_demo.Dto.StudentDetailsDto;
 import com.example.spring_demo.models.StudentsDetails;
+import com.example.spring_demo.models.Users;
 import com.example.spring_demo.respositories.StudentDetailsRepository;
+import com.example.spring_demo.respositories.UsersRepository;
 import com.example.spring_demo.services.StudentDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,17 +16,25 @@ public  class StudentDetailsServiceImpl implements StudentDetailsService {
   @Autowired
   private final StudentDetailsRepository studentDetailsRepository;
 
-  public StudentDetailsServiceImpl(StudentDetailsRepository studentDetailsRepository) {
-    this.studentDetailsRepository = studentDetailsRepository;
+  @Autowired
+  private final UsersRepository usersRepository;
 
+  public StudentDetailsServiceImpl(StudentDetailsRepository studentDetailsRepository, UsersRepository usersRepository) {
+    this.studentDetailsRepository = studentDetailsRepository;
+    this.usersRepository = usersRepository;
   }
 
   @Override
-  public StudentsDetails createDetails(StudentDetailsDto studentDetailsDto) {
+  public StudentsDetails createDetails(StudentDetailsDto studentDetailsDto, Long userId) {
     System.out.println("<============================START==========================>");
     System.out.println("<=========================INSIDE createDetails=============================>");
 
+// Fetch the user entity using userId
+    Users user = usersRepository.findById(userId)
+      .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
     StudentsDetails studentsDetails = new StudentsDetails();
+    // Set the student details fields
     studentsDetails.setRegistrationNumber(studentDetailsDto.getRegistrationNumber());
     studentsDetails.setProgramme(studentDetailsDto.getProgramme());
     studentsDetails.setNationality(studentDetailsDto.getNationality());
@@ -36,7 +46,10 @@ public  class StudentDetailsServiceImpl implements StudentDetailsService {
     studentsDetails.setFormIVIndex(studentDetailsDto.getFormIVIndex());
     studentsDetails.setDateOfBirth(studentDetailsDto.getDateOfBirth());
 
-    return  studentDetailsRepository.save(studentsDetails);
+    // Associate the user with the student details
+    studentsDetails.setUsers(user);
+
+    return studentDetailsRepository.save(studentsDetails);
 
   }
 

@@ -2,33 +2,40 @@ package com.example.spring_demo.servicesImpl;
 
 import com.example.spring_demo.Dto.CreateInvoiceDto;
 import com.example.spring_demo.models.CreateInvoice;
+import com.example.spring_demo.models.StudentsDetails;
 import com.example.spring_demo.respositories.CreateInvoiceRepository;
+import com.example.spring_demo.respositories.StudentDetailsRepository;
 import com.example.spring_demo.services.CreateInvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-
 public class CreateInvoiceServiceImpl implements CreateInvoiceService {
 
   @Autowired
   private final CreateInvoiceRepository createInvoiceRepository;
+  @Autowired
+  private final StudentDetailsRepository studentDetailsRepository;
 
-  public CreateInvoiceServiceImpl(CreateInvoiceRepository createInvoiceRepository) {
+  public CreateInvoiceServiceImpl(CreateInvoiceRepository createInvoiceRepository, StudentDetailsRepository studentDetailsRepository) {
     this.createInvoiceRepository = createInvoiceRepository;
-
+    this.studentDetailsRepository = studentDetailsRepository;
   }
 
   @Override
-  public CreateInvoice createInvoices(CreateInvoiceDto createInvoiceDto) {
+  public CreateInvoice createInvoices(Long student_detail_id, CreateInvoiceDto createInvoiceDto) {
+
+    StudentsDetails student = studentDetailsRepository.findById(student_detail_id)
+      .orElseThrow(() -> new RuntimeException("Student not found"));
+
     CreateInvoice createInvoice = new CreateInvoice();
     createInvoice.setCategory(createInvoiceDto.getCategory());
     createInvoice.setStatus(createInvoiceDto.getStatus());
     createInvoice.setCurrency(createInvoiceDto.getCurrency());
     createInvoice.setInvoice_number(createInvoiceDto.getInvoice_number());
-    System.out.println(createInvoiceDto.getInvoice_number());
 
+    createInvoice.setStudentsDetails(student);
     return createInvoiceRepository.save(createInvoice);
 
   }
@@ -36,6 +43,7 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
   @Override
   public List<CreateInvoice> getInvoice() {
     return createInvoiceRepository.findAll();
+
   }
 
   @Override
@@ -56,7 +64,6 @@ public class CreateInvoiceServiceImpl implements CreateInvoiceService {
   @Override
   public void deleteInvoice(Long invoiceId) {
     createInvoiceRepository.deleteById(invoiceId);
-
-
   }
+
 }
